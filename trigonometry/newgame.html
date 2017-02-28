@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+</html>
+<html>
+    <head>
+        <style type="text/css">
+        
+            body {
+                transition: 1s;
+                -webkit-transition: 2s;
+				margin: 0;
+				padding: 0;
+            }
+            canvas {
+                border: none;
+				width: 100%;
+				height: 100%:
+				display: block;
+            }
+
+        </style>
+	
+    </head>
+
+    <body> 
+    <canvas id="canvas"></canvas>
+
+     <script type="text/javascript">
+
+            var canvas = document.getElementById("canvas");
+            var c = canvas.getContext("2d");
+			
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            var keys = [];
+			
+			var white = 255;
+			
+			// 1st element: if anything is changing color 2nd: what to change 3rd: what to change it to
+			var isChangingColor = false;
+			var changingColor = [];
+
+            
+            document.addEventListener('keydown', function(e) {
+                keys[e.keyCode] = true;
+				if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
+					e.preventDefault();
+				}
+            },false);
+            document.addEventListener('keyup', function(e) {
+                keys[e.keyCode] = false;
+            },false);
+			
+			var textToDisplay = [false, ""];
+
+            function random(min, max) {
+            	return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+			
+			function delay(functionToCall, delayMS) {
+				window.setTimeout(functionToCall, delayMS);
+			}
+
+            var player = {
+                x: -50,
+                y: -50,
+                r: 20,
+                dead: false,
+                color: [0, 0, 0],
+                draw: function() {
+                    c.fillStyle = "rgb(" + this.color[0] + "," + this.color[1] + "," + this.color[2] + ")";
+                    c.beginPath();
+                    c.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+                    c.fill();
+                },
+                move: function() {
+                    if (keys[37]) {
+                        this.x -= 3;
+                    }
+                    if (keys[39]) {
+                        this.x += 3;
+                    }
+                    if (keys[38]) {
+                    	this.y -= 3;
+                    }
+                    if (keys[40]) {
+                      this.y += 3;
+                    }  
+                }
+            }
+			
+
+            function Circle(x, y, r, color) {
+            	this.x = x;
+            	this.y = y;
+            	this.r = r;
+            	this.color = color;
+                this.moveDir = [0, 0];
+            	this.draw = function() {
+            		c.fillStyle = "rgb(" + this.color[0] + "," + this.color[1] + "," + this.color[2] + ")";
+            		c.beginPath();
+            		// x, y, r, start angle, end angle
+            		c.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+            		c.fill();
+            	}
+                this.move = function() {
+                    this.x += this.moveDir[0];
+                    this.y += this.moveDir[1];
+                }
+				this.check = function() {
+
+					for (var i = 0; i < circles.length; i++) {
+						if (colCheck(circles[i])) {
+							if (circles[i].color[0] === 256) {
+							// kill player
+							}
+							else {
+								level++;
+								levelSwitcher();
+							}
+						}
+					}
+				}
+                this.destroy = function() {
+                    circles.splice(circles.indexOf(this), 1);
+                }
+            }
+
+            var circles = [];
+
+            function colCheck(circle) {
+
+                var distX = (circle.x - player.x);
+                var distY = (circle.y - player.y) ;
+                if ( (distX * distX + distY * distY) <= (player.r + circle.r) * (player.r + circle.r) )
+                {
+                    return true;
+                }
+            }
+			
+			// Accepts two arrays: the color array to change, the array it should be changed to
+			//2.125 seconds to fade (@60fps, could be higher or lower)
+			function changeColor(thingToChange, changeAmount) {
+				if (thingToChange[0] < changeAmount[0]) {
+					thingToChange[0] += 2;
+				}
+				if (thingToChange[1] < changeAmount[1]) {
+					thingToChange[1] += 2;
+				}
+				if (thingToChange[2] < changeAmount[2]) {
+					thingToChange[2] += 2;
+				}
+				if (thingToChange[0] >= changeAmount[0] && thingToChange[1] >= changeAmount[1] && thingToChange[2] >= changeAmount[2]) {
+					isChangingColor = false;
+				}
+			}
+			
+			function displayText(text) {
+				c.fillStyle = "rgb(" + white + "," + white + "," + white + ")";
+				white -= 2;
+				c.textAlign = "center";
+				c.textBaseline = "middle";
+				c.font = "64px Arial";
+				c.fillText(text, canvas.width / 2 , canvas.height / 2);
+				if (white <= 0) {
+					textToDisplay[1] = false;
+					white = 255;
+				}
+			}
+			
+			var level = 0;		
+			
+			function levelSwitcher() {
+				switch (level) {
+					case 0:
+					player.x = canvas.width / 2;
+					player.y = 0 + player.r;
+					textToDisplay[0] = true;
+					textToDisplay[1] = "ARROW KEYS TO MOVE";
+					delay(function() {
+						textToDisplay[0] = true;
+						textToDisplay[1] = "AVOID THE RED";
+					}, 2200);
+					delay(function() {
+						textToDisplay[0] = true;
+						textToDisplay[1] = "GET TO THE GREEN";
+					}, 4400);
+					delay(function() {
+						circles[0] = new Circle(canvas.width / 2, canvas.height / 2, 200, [0, 0, 0]);
+						circles[1] = new Circle(canvas.width / 2, canvas.height - 70, 35, [0, 0, 0]);
+						isChangingColor = true;
+						/*
+							changingColor = [ [0, 0, 0], [255, 255, 255] ]
+						*/
+						changingColor[0] = [player.color, [255, 255, 255]];
+						changingColor[1] = [circles[0].color, [255, 0, 0]];
+						changingColor[2] = [circles[1].color, [0, 255, 0]];
+					}, 6600);
+					//circles[0] = new Circle(canvas.width / 2, canvas.width 
+					break;
+					case 1:
+					circles.splice(0, circles.length);
+					player.x = 0;
+					player.y = 0;
+					
+				}
+			}
+			
+			levelSwitcher();
+			
+            function update() {
+				c.fillStyle = "black";
+				c.fillRect(0, 0, canvas.width, canvas.height);	
+				
+				if (isChangingColor) {
+					for (var i = 0; i < changingColor.length; i++) {
+						changeColor(changingColor[i][0], changingColor[i][1]);
+					}
+				}
+				
+            	player.draw();
+            	player.move();
+				
+				
+            	for (var i = 0; i < circles.length; i++) {
+            		circles[i].draw();
+                    circles[i].move();
+					circles[i].check();
+                }
+				
+				if (textToDisplay[1]) {
+					displayText(textToDisplay[1]);
+				}
+          
+            	requestAnimationFrame(update);
+            }
+
+            update();
+
+        </script>
+</body>
+</html>         
