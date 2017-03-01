@@ -36,6 +36,10 @@
 			
 			var white = 255;
 			
+			var bgColor = "black";
+			
+			var gameOver = false;
+			
 			// 1st element: if anything is changing color 2nd: what to change 3rd: what to change it to
 			var isChangingColor = false;
 			var changingColor = [];
@@ -111,10 +115,11 @@
 
 					for (var i = 0; i < circles.length; i++) {
 						if (colCheck(circles[i])) {
-							if (circles[i].color[0] === 256) {
-							// kill player
+							if (circles[i].color[0] === 254) {
+								player.dead = true;
 							}
-							else {
+							else if (circles[i].color[1] === 254) {
+								circles.splice(0, circles.length);
 								level++;
 								levelSwitcher();
 							}
@@ -140,18 +145,36 @@
 			
 			// Accepts two arrays: the color array to change, the array it should be changed to
 			//2.125 seconds to fade (@60fps, could be higher or lower)
-			function changeColor(thingToChange, changeAmount) {
-				if (thingToChange[0] < changeAmount[0]) {
-					thingToChange[0] += 2;
+			function changeColor(thingToChange, changeAmount, direction) {
+				if (direction === "up") {
+					if (thingToChange[0] < changeAmount[0]) {
+						thingToChange[0] += 2;
+					}
+					if (thingToChange[1] < changeAmount[1]) {
+						thingToChange[1] += 2;
+					}
+					if (thingToChange[2] < changeAmount[2]) {
+						thingToChange[2] += 2;
+					}
+					if (thingToChange[0] >= changeAmount[0] && thingToChange[1] >= changeAmount[1] && thingToChange[2] >= changeAmount[2]) {
+						isChangingColor = false;
+						changingColor.splice(0, changingColor.length);
+					}
 				}
-				if (thingToChange[1] < changeAmount[1]) {
-					thingToChange[1] += 2;
-				}
-				if (thingToChange[2] < changeAmount[2]) {
-					thingToChange[2] += 2;
-				}
-				if (thingToChange[0] >= changeAmount[0] && thingToChange[1] >= changeAmount[1] && thingToChange[2] >= changeAmount[2]) {
-					isChangingColor = false;
+				else if (direction === "down") {
+					if (thingToChange[0] > changeAmount[0]) {
+						thingToChange[0] -= 2;
+					}
+					if (thingToChange[1] > changeAmount[1]) {
+						thingToChange[1] -= 2;
+					}
+					if (thingToChange[2] > changeAmount[2]) {
+						thingToChange[2] -= 2;
+					}
+					if (thingToChange[0] <= changeAmount[0] && thingToChange[1] <= changeAmount[1] && thingToChange[2] <= changeAmount[2]) {
+						isChangingColor = false;
+						changingColor.splice(0, changingColor.length);
+					}
 				}
 			}
 			
@@ -163,7 +186,7 @@
 				c.font = "64px Arial";
 				c.fillText(text, canvas.width / 2 , canvas.height / 2);
 				if (white <= 0) {
-					textToDisplay[1] = false;
+					textToDisplay[0] = false;
 					white = 255;
 				}
 			}
@@ -173,35 +196,35 @@
 			function levelSwitcher() {
 				switch (level) {
 					case 0:
-					player.x = canvas.width / 2;
-					player.y = 0 + player.r;
-					textToDisplay[0] = true;
-					textToDisplay[1] = "ARROW KEYS TO MOVE";
-					delay(function() {
+						player.x = canvas.width / 2;
+						player.y = 0 + player.r;
 						textToDisplay[0] = true;
-						textToDisplay[1] = "AVOID THE RED";
-					}, 2200);
-					delay(function() {
-						textToDisplay[0] = true;
-						textToDisplay[1] = "GET TO THE GREEN";
-					}, 4400);
-					delay(function() {
-						circles[0] = new Circle(canvas.width / 2, canvas.height / 2, 200, [0, 0, 0]);
-						circles[1] = new Circle(canvas.width / 2, canvas.height - 70, 35, [0, 0, 0]);
-						isChangingColor = true;
-						/*
-							changingColor = [ [0, 0, 0], [255, 255, 255] ]
-						*/
-						changingColor[0] = [player.color, [255, 255, 255]];
-						changingColor[1] = [circles[0].color, [255, 0, 0]];
-						changingColor[2] = [circles[1].color, [0, 255, 0]];
-					}, 6600);
-					//circles[0] = new Circle(canvas.width / 2, canvas.width 
+						textToDisplay[1] = "ARROW KEYS TO MOVE";
+						delay(function() {
+							textToDisplay[0] = true;
+							textToDisplay[1] = "AVOID THE RED";
+						}, 2400);
+						delay(function() {
+							textToDisplay[0] = true;
+							textToDisplay[1] = "GET TO THE GREEN";
+						}, 4800);
+						
+						delay(function() {
+							circles[0] = new Circle(canvas.width / 2, canvas.height / 2, 200, [0, 0, 0]);
+							circles[1] = new Circle(canvas.width / 2, canvas.height - 70, 35, [0, 0, 0]);
+							isChangingColor = true;
+							/*
+								changingColor = [ [0, 0, 0], [255, 255, 255] ]
+							*/
+							changingColor[0] = [player.color, [255, 255, 255], "up"];
+							changingColor[1] = [circles[0].color, [255, 0, 0], "up"];
+							changingColor[2] = [circles[1].color, [0, 255, 0], "up"];
+						}, 7200);
 					break;
 					case 1:
-					circles.splice(0, circles.length);
-					player.x = 0;
-					player.y = 0;
+						
+						player.x = 0;
+						player.y = 0;
 					
 				}
 			}
@@ -209,12 +232,12 @@
 			levelSwitcher();
 			
             function update() {
-				c.fillStyle = "black";
+				c.fillStyle = bgColor;
 				c.fillRect(0, 0, canvas.width, canvas.height);	
 				
 				if (isChangingColor) {
 					for (var i = 0; i < changingColor.length; i++) {
-						changeColor(changingColor[i][0], changingColor[i][1]);
+						changeColor(changingColor[i][0], changingColor[i][1], changingColor[i][2]);
 					}
 				}
 				
@@ -222,14 +245,34 @@
             	player.move();
 				
 				
+
             	for (var i = 0; i < circles.length; i++) {
             		circles[i].draw();
                     circles[i].move();
 					circles[i].check();
                 }
 				
-				if (textToDisplay[1]) {
+				if (textToDisplay[0]) {
 					displayText(textToDisplay[1]);
+				}
+				
+				if (player.dead && !gameOver) {
+					//circles.splice(0, circles.length);
+					isChangingColor = true;
+					changingColor[0] = [player.color, [0, 0, 0], "down"];
+					for (var i = 0; i < circles.length; i++) {
+						changingColor[i + 1] = [circles[i].color, [0, 0, 0], "down"];
+					}
+					c.fillStyle = "white";
+					delay(function() {
+						textToDisplay[0] = true;
+						textToDisplay[1] = "GAME OVER";
+					}, 2400);
+					delay(function() {
+						textToDisplay[0] = true;
+						textToDisplay[1] = "REFRESH PAGE TO RESTART";
+					}, 4800);	
+					gameOver = true;
 				}
           
             	requestAnimationFrame(update);
