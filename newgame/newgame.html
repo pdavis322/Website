@@ -38,6 +38,7 @@
 			
 			var bgColor = "black";
 			
+			var gameStarted = false;
 			var gameOver = false;
 			
 			// 1st element: if anything is changing color 2nd: what to change 3rd: what to change it to
@@ -210,6 +211,7 @@
 						}, 4800);
 						
 						delay(function() {
+							gameStarted = true;
 							circles[0] = new Circle(canvas.width / 2, canvas.height / 2, 200, [0, 0, 0]);
 							circles[1] = new Circle(canvas.width / 2, canvas.height - 70, 35, [0, 0, 0]);
 							isChangingColor = true;
@@ -241,16 +243,17 @@
 					}
 				}
 				
-            	player.draw();
-            	player.move();
+				if (gameStarted) {
 				
-				
+					player.draw();
+					player.move();
 
-            	for (var i = 0; i < circles.length; i++) {
-            		circles[i].draw();
-                    circles[i].move();
-					circles[i].check();
-                }
+					for (var i = 0; i < circles.length; i++) {
+						circles[i].draw();
+						circles[i].move();
+						circles[i].check();
+					}
+				}
 				
 				if (textToDisplay[0]) {
 					displayText(textToDisplay[1]);
