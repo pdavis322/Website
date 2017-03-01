@@ -211,7 +211,6 @@
 						}, 4800);
 						
 						delay(function() {
-							gameStarted = true;
 							circles[0] = new Circle(canvas.width / 2, canvas.height / 2, 200, [0, 0, 0]);
 							circles[1] = new Circle(canvas.width / 2, canvas.height - 70, 35, [0, 0, 0]);
 							isChangingColor = true;
@@ -222,6 +221,9 @@
 							changingColor[1] = [circles[0].color, [255, 0, 0], "up"];
 							changingColor[2] = [circles[1].color, [0, 255, 0], "up"];
 						}, 7200);
+						delay(function() {
+							gameStarted = true;
+						}, 9600);
 					break;
 					case 1:
 						
@@ -243,16 +245,19 @@
 					}
 				}
 				
-				if (gameStarted) {
 				
-					player.draw();
+				player.draw();
+					
+				if (!gameOver && gameStarted) {
 					player.move();
+				}
 
-					for (var i = 0; i < circles.length; i++) {
-						circles[i].draw();
+				for (var i = 0; i < circles.length; i++) {
+					circles[i].draw();
+					if (!gameOver && gameStarted) {
 						circles[i].move();
-						circles[i].check();
 					}
+					circles[i].check();
 				}
 				
 				if (textToDisplay[0]) {
