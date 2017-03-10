@@ -43,7 +43,7 @@
 			
 			// 1st element: if anything is changing color 2nd: what to change 3rd: what to change it to
 			var isChangingColor = false;
-			var changingColor = [];
+			var changingColor = [false, "up"];
 
             
             document.addEventListener('keydown', function(e) {
@@ -66,7 +66,7 @@
 				window.setTimeout(functionToCall, delayMS);
 			}
 
-            var player = {
+            /*var player = {
                 x: -50,
                 y: -50,
                 r: 20,
@@ -93,14 +93,15 @@
                     }  
                 }
             }
-			
+			*/
 
-            function Circle(x, y, r, color) {
+            function Circle(x, y, r, bad) {
             	this.x = x;
             	this.y = y;
             	this.r = r;
-            	this.color = color;
+            	this.color = [0, 0, 0];
                 this.moveDir = [0, 0];
+				this.bad = bad;
             	this.draw = function() {
             		c.fillStyle = "rgb(" + this.color[0] + "," + this.color[1] + "," + this.color[2] + ")";
             		c.beginPath();
@@ -109,29 +110,67 @@
             		c.fill();
             	}
                 this.move = function() {
-                    this.x += this.moveDir[0];
+					if (this.x < this.moveDir[2]) {
+						this.x += this.moveDir[0];
+					}
                     this.y += this.moveDir[1];
                 }
 				this.check = function() {
 
 					for (var i = 0; i < circles.length; i++) {
 						if (colCheck(circles[i])) {
-							if (circles[i].color[0] === 254) {
+							if (circles[i].bad) {
 								player.dead = true;
 							}
-							else if (circles[i].color[1] === 254) {
-								circles.splice(0, circles.length);
-								level++;
-								levelSwitcher();
+							else if (!circles[i].bad) {
+								changingColor[0] = true;
+								changingColor[1] = "down";
+								delay(function() {
+									circles.splice(0, circles.length);
+									level++;
+									levelSwitcher();
+								}, 2400);
 							}
 						}
 					}
+				}
+				this.colorChange = function() {
+					// if direction is up or down
+					if (this.bad === true) {
+						changeColor(this.color, (changingColor[1] === "up") ? [255, 0, 0] : [0, 0, 0], (changingColor[1] === "up") ? "up" : "down");
+					}
+					else if (!this.bad) {
+						changeColor(this.color, (changingColor[1] === "up") ? [0, 255, 0] : [0, 0, 0], (changingColor[1] === "up") ? "up" : "down");
+					}
+					else if (this.bad === "player") {
+						changeColor(this.color, (changingColor[1] === "up") ? [255, 255, 255] : [0, 0, 0], (changingColor[1] === "up") ? "up" : "down");
+					}
+					
 				}
                 this.destroy = function() {
                     circles.splice(circles.indexOf(this), 1);
                 }
             }
-
+			
+			var player = new Circle(-50, -50, 20, "player");
+			
+			player.movePlayer = function() {
+			    if (keys[37]) {
+                    this.x -= 3;
+                }
+                if (keys[39]) {
+                    this.x += 3;
+                }
+                if (keys[38]) {
+					this.y -= 3;
+                }
+                if (keys[40]) {
+                   this.y += 3;
+				}
+			}
+			
+			player.dead = false;
+						
             var circles = [];
 
             function colCheck(circle) {
@@ -158,7 +197,7 @@
 						thingToChange[2] += 2;
 					}
 					if (thingToChange[0] >= changeAmount[0] && thingToChange[1] >= changeAmount[1] && thingToChange[2] >= changeAmount[2]) {
-						isChangingColor = false;
+						changingColor[0] = false;
 						changingColor.splice(0, changingColor.length);
 					}
 				}
@@ -173,7 +212,7 @@
 						thingToChange[2] -= 2;
 					}
 					if (thingToChange[0] <= changeAmount[0] && thingToChange[1] <= changeAmount[1] && thingToChange[2] <= changeAmount[2]) {
-						isChangingColor = false;
+						changingColor[0] = false;
 						changingColor.splice(0, changingColor.length);
 					}
 				}
@@ -198,10 +237,10 @@
 				switch (level) {
 					case 0:
 						player.x = canvas.width / 2;
-						player.y = 0 + player.r;
-						textToDisplay[0] = true;
-						textToDisplay[1] = "ARROW KEYS TO MOVE";
-						delay(function() {
+						player.y = 5 + player.r;
+						//textToDisplay[0] = true;
+						//textToDisplay[1] = "ARROW KEYS TO MOVE";
+						/*delay(function() {
 							textToDisplay[0] = true;
 							textToDisplay[1] = "AVOID THE RED";
 						}, 2400);
@@ -209,26 +248,23 @@
 							textToDisplay[0] = true;
 							textToDisplay[1] = "GET TO THE GREEN";
 						}, 4800);
-						
-						delay(function() {
-							circles[0] = new Circle(canvas.width / 2, canvas.height / 2, 200, [0, 0, 0]);
-							circles[1] = new Circle(canvas.width / 2, canvas.height - 70, 35, [0, 0, 0]);
-							isChangingColor = true;
-							/*
-								changingColor = [ [0, 0, 0], [255, 255, 255] ]
-							*/
-							changingColor[0] = [player.color, [255, 255, 255], "up"];
-							changingColor[1] = [circles[0].color, [255, 0, 0], "up"];
-							changingColor[2] = [circles[1].color, [0, 255, 0], "up"];
-						}, 7200);
-						delay(function() {
+						*/
+						//delay(function() {
+							circles[0] = new Circle(canvas.width / 2, canvas.height / 2, 200, true);
+							circles[1] = new Circle(canvas.width / 2, canvas.height - 70, 35, false);
+							changingColor[0] = true;
+							changingColor[1] = "up";
+						//}, 7200);
+						//delay(function() {
 							gameStarted = true;
-						}, 9600);
+						//}, 9600);
 					break;
 					case 1:
-						
-						player.x = 0;
-						player.y = 0;
+						player.x = canvas.width / 2;
+						player.y = 5 + player.r;
+						circles[0] = new Circle(canvas.width / 2, canvas.height / 2, 500, true);
+						changingColor[0] = true;
+						changingColor[1] = "up";
 					
 				}
 			}
@@ -239,17 +275,20 @@
 				c.fillStyle = bgColor;
 				c.fillRect(0, 0, canvas.width, canvas.height);	
 				
-				if (isChangingColor) {
-					for (var i = 0; i < changingColor.length; i++) {
-						changeColor(changingColor[i][0], changingColor[i][1], changingColor[i][2]);
+				if (changingColor[0]) {
+					if (circles) {
+						for (var i = 0; i < circles.length; i++) {
+							circles[i].colorChange();
+						}
+						player.colorChange();
 					}
 				}
 				
 				
 				player.draw();
 					
-				if (!gameOver && gameStarted) {
-					player.move();
+				if (!gameOver && gameStarted && !changingColor[0]) {
+					player.movePlayer();
 				}
 
 				for (var i = 0; i < circles.length; i++) {
@@ -263,15 +302,13 @@
 				if (textToDisplay[0]) {
 					displayText(textToDisplay[1]);
 				}
-				
+				c.fillStyle = "white";
+				c.font = "32px Arial";
+				c.fillText(circles[0].color, 200, 200);
+		
 				if (player.dead && !gameOver) {
-					//circles.splice(0, circles.length);
-					isChangingColor = true;
-					changingColor[0] = [player.color, [0, 0, 0], "down"];
-					for (var i = 0; i < circles.length; i++) {
-						changingColor[i + 1] = [circles[i].color, [0, 0, 0], "down"];
-					}
-					c.fillStyle = "white";
+					changingColor[0] = true;
+					changingColor[1] = "down";
 					delay(function() {
 						textToDisplay[0] = true;
 						textToDisplay[1] = "GAME OVER";
