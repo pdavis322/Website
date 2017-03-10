@@ -3,7 +3,7 @@
 	<head>
 	</head>
 	<body>
-		<canvas id="canvas" style="display: block; margin: 0 auto; border: 1px solid black" width="350px" height="700px"></canvas>
+		<canvas id="canvas" style="display: block; margin: 0 auto; border: 1px solid black" width="300px" height="600px"></canvas>
 		<script type="text/javascript">
 			var canvas = document.getElementById("canvas");
 			var c = canvas.getContext("2d");
@@ -11,7 +11,7 @@
 			
 			function fillSquare(x, y) {
 				c.fillStyle = "black";
-				c.fillRect(x * 35, y * 35, 35, 35);
+				c.fillRect(x * 30, y * 30, 30, 30);
 			}
 			
 			var key;
@@ -75,10 +75,10 @@
 				c.fillRect(0, 0, canvas.width, canvas.height);
 				c.fillStyle = "black";
 				for (var i = 0; i < 20; i++) {
-					c.fillRect(0, 35 * i, 350, 1);
+					c.fillRect(0, 30 * i, 300, 1);
 				}
 				for (var i = 0; i < 10; i++) {
-					c.fillRect(i * 35, 0, 1, 700);
+					c.fillRect(i * 30, 0, 1, 600);
 				}
 				for (var i = 0; i < shapes.length; i++) {
 					shapes[i].draw();
