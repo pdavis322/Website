@@ -10,8 +10,8 @@
 			c.fillStyle = "black";
 			
 			function fillSquare(x, y) {
-				c.fillStyle = "black";
-				c.fillRect(x * 30, y * 30, 30, 30);
+				c.strokeStyle = "black";
+				c.strokeRect(x * 30, y * 30, 30, 30);
 			}
 			
 			var key;
@@ -38,12 +38,12 @@
 				this.x = x;
 				this.y = y;
 				this.active = true;
+				this.hasBeenAdded = false;
 				this.draw = function() {
 					fillSquare(this.x, this.y);
 					if (this.y >= 19) {
 						this.active = false;
 					}
-					console.log(this.y);
 				}
 				this.move = function(dir) {
 					if (dir === "down") {
@@ -55,41 +55,69 @@
 					else if (dir === "right") {
 						this.x++;
 					}
-					
+				}
+				this.check = function() {
+					for (var i = 0; i < shapes.length; i++) {
+						if (colCheck(this, shapes[i]) ) {
+							this.active = false;
+						}
+						if (!this.active && !this.hasBeenAdded) {
+							occupiedSquares[occupiedSquares.length] = [this.x, this.y];
+							//alert(occupiedSquares[occupiedSquares.length - 1]);
+							this.hasBeenAdded = true;
+						}
+					}
 				}
 			}
 			
 			var shapes = [];
-			shapes[0] = new Shape(0, 0);
-			
-			
+			shapes[0] = new Shape(0, 0);			
 		
 			window.setInterval(function() {
-				if (shapes[shapes.length - 1].active) {
+				//if (shapes[shapes.length - 1].active) {
+				if (shapes[shapes.length - 1]) {
 					shapes[shapes.length - 1].y++;
 				}
+				//}
 			}, 1000);
+			
+			function colCheck(shapeA, shapeB) {
+				for (var i = 0; i < shapes.length; i++) {
+					if (shapeA.x === shapeB.x && shapeA.y === (shapeB.y - 1)) {
+						return true;
+					}
+				}
+			}
+			
+			var occupiedSquares = [];
 			
 			function update() {
 				c.fillStyle = "white";
 				c.fillRect(0, 0, canvas.width, canvas.height);
 				c.fillStyle = "black";
+				/*
 				for (var i = 0; i < 20; i++) {
 					c.fillRect(0, 30 * i, 300, 1);
 				}
 				for (var i = 0; i < 10; i++) {
 					c.fillRect(i * 30, 0, 1, 600);
 				}
+				*/
 				for (var i = 0; i < shapes.length; i++) {
 					shapes[i].draw();
-
+					shapes[i].check();
+				}
+				
+				if (occupiedSquares[0] && occupiedSquares[1]) {
+				if (occupiedSquares[0][1] === occupiedSquares[1][1]) {
+					shapes.splice(0, 2);
+					alert("asdf");
 				}
 				
 				if (!shapes[shapes.length - 1].active) {
 					shapes[shapes.length] = new Shape(0, 0);
 				}
 				
-				console.log(key);
 				requestAnimationFrame(update);
 			}
 			
