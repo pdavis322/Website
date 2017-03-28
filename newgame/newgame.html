@@ -43,6 +43,8 @@
 			// 1st element: if anything is changing color 2nd: what to change 3rd: what to change it to
 			var isChangingColor = false;
 			var changingColor = [false, "up"];
+			
+			var isBad = false;
 
             
             document.addEventListener('keydown', function(e) {
@@ -118,7 +120,7 @@
 								changingColor[0] = true;
 								changingColor[1] = "down";
 								c.fillStyle = "white";
-
+								
 							}
 						}
 					}
@@ -206,8 +208,10 @@
 						changingColor[0] = false;
 						changingColor.splice(0, changingColor.length);
 						circles.splice(0, circles.length);
-						level++;
-						levelSwitcher();
+						if (!player.dead) {
+							level++;
+							levelSwitcher();
+						}
 					}
 				}
 			}
@@ -288,7 +292,7 @@
             function update() {
 				c.fillStyle = bgColor;
 				c.fillRect(0, 0, canvas.width, canvas.height);	
-				
+					
 				if (changingColor[0]) {
 					if (circles) {
 						for (var i = 0; i < circles.length; i++) {
@@ -324,6 +328,7 @@
 				if (player.dead && !gameOver) {
 					changingColor[0] = true;
 					changingColor[1] = "down";
+					
 					delay(function() {
 						textToDisplay[0] = true;
 						textToDisplay[1] = "GAME OVER";
