@@ -148,16 +148,17 @@
 			player.speed = 3.75;
 			
 			player.movePlayer = function() {
-			    if (keys[37]) {
+				
+			    if (keys[37] && player.x >= player.r) {
                     this.x -= player.speed;
                 }
-                if (keys[39]) {
+                if (keys[39] && player.x <= canvas.width - player.r) {
                     this.x += player.speed;
                 }
-                if (keys[38]) {
+                if (keys[38] && player.y > player.r) {
 					this.y -= player.speed;
                 }
-                if (keys[40]) {
+                if (keys[40] && player.y < canvas.height - player.r) {
                    this.y += player.speed;
 				}
 			}
@@ -282,7 +283,22 @@
 						changingColor[1] = "up";
 					break;
 					case 3:
-						alert("Good jokes mate real funny See u at FUCK YOUJ");
+						player.x = player.r;
+						player.y = canvas.height / 2;
+						for (var i = 1; i < 5; i++) {
+							circles[i - 1] = new Circle(canvas.width * .1, 50, 50, true, [canvas.width, canvas.height]);
+							circles[i - 1].x = (canvas.width * .1) + (i * 200);
+							circles[i - 1].y = canvas.height / 2;
+							circles[i - 1].moveDir[0] = 5;
+							circles[i - 1].moveDir[1] = 10;
+						}
+						circles[4] = new Circle(canvas.width - 35, canvas.height / 2, 35,  false);
+						//circles[5] = new Circle(canvas.width * .1, 50, 50, true, [canvas.width * .25, canvas.height]);
+						changingColor[0] = true;
+						changingColor[1] = "up";
+					break;
+					case 4:
+						alert("nice hax kid ur not good");
 					break;
 				}
 			}
@@ -311,7 +327,7 @@
 
 				for (var i = 0; i < circles.length; i++) {
 					circles[i].draw();
-					if (!gameOver && gameStarted) {
+					if (!gameOver && gameStarted && !changingColor[0]) {
 						
 						circles[i].move();
 					}
@@ -336,7 +352,7 @@
 					delay(function() {
 						textToDisplay[0] = true;
 						textToDisplay[1] = "REFRESH PAGE TO RESTART";
-					}, 4800);	
+					}, 5000);	
 					gameOver = true;
 				}
           
