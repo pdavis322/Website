@@ -4,7 +4,7 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300i|Roboto+Slab|Source+Code+Pro" rel="stylesheet">
         <style type="text/css">
             body {  
-                background-color: white;
+                background-color: #d4d4d4;
                 color: black;
             }
             #mainHeader {
@@ -20,7 +20,7 @@
             hr {
                 border: 0;
                 height: 1px;
-                width: 50%;
+                width: 75%;
                 background: linear-gradient(to right, black, white, black);
             }
 
@@ -40,6 +40,32 @@
             #about {
                 display: inline-block;
             }
+            button {
+				text-outline: none;
+				border: 0 none;
+				border-radius: 100px;
+				display: inline-block;
+				outline: none;
+				width: 200px;
+				height: 200px;
+				margin-left: 3%;
+				margin-right: 3%;
+				transition: 1s;
+				-webkit-transition: 1s;
+				font-size: 40px;
+				font-family: "Open Sans", sans-serif;
+				color: white;
+				text-shadow: 0 0 10px black, 0 0 10px black, 0 0 10px black;
+            }
+            
+            button:hover {
+				cursor: pointer;
+            }
+            
+            button:active {
+				background-color: black;
+            }
+
         </style>
     </head>
     <body>
@@ -55,13 +81,54 @@
         <p>
             I'm Peter and I like Web development.
         </p>
-
+        <div style="text-align: center; ">
+			<button id="about" onclick="buttonClicked(0)">About</button>
+			<button id="games" onclick="buttonClicked(1)">Games</button>
+			<button id="tutorials" onclick="buttonClicked(2)">Tutorials</button>
+			<button id="misc" onclick="buttonClicked(3)">Misc.</button>
+		</div>
         <script type="text/javascript">
             var colors = [255, 255, 255, 0, 0, 0];
 
             var down = true;
-
-            setInterval(function() {
+            var clicked = false;
+			var buttons = [document.getElementById("about"), document.getElementById("games"), document.getElementById("tutorials"), document.getElementById("misc")];
+			function buttonClicked(whichButton) {
+			
+				clicked = true;
+				buttons[whichButton].style.transition = "0s";
+				buttons[whichButton].style.webkitTransition = "0s";
+				buttons[whichButton].style.transform = "translate(10px, 10px);"
+				buttons[whichButton].style.backgroundColor = "black";
+				buttons[whichButton].style.boxShadow = "none";
+				alert("This page is currently under construction. Check back later!");
+				
+			}
+			
+			function randomColor() {
+				function random() {
+					return Math.floor(Math.random() * 256); 
+				}
+				return "rgb(" + random() + "," + random() + "," + random() + ")";
+			}
+					for (var i = 0; i < buttons.length; i++) {
+					var color = randomColor();
+					if (!clicked) {
+						buttons[i].style.backgroundColor = randomColor();
+						buttons[i].style.boxShadow = "10px 10px 0 black;"
+					}
+				}
+			setInterval(function() {
+				
+				for (var i = 0; i < buttons.length; i++) {
+					var color = randomColor();
+					if (!clicked) {
+						buttons[i].style.backgroundColor = randomColor();
+						buttons[i].style.boxShadow = "10px 10px 0 black;"
+					}
+				}
+			}, 2000);
+            /*setInterval(function() {
 
                 if (down) {
                     colors[0]--;
@@ -88,6 +155,7 @@
                 document.body.style.backgroundColor = "rgb(" + colors[0] + "," + colors[1] + "," + colors[2] + ")";
                 document.body.style.color = "rgb(" + colors[3] + "," + colors[4] + "," + colors[5] + ")";
             }, 75);
+            */
         </script>
     </body>
 </html>
