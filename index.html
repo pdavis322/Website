@@ -1,3 +1,93 @@
 <!doctype html>
 <html>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300i|Roboto+Slab|Source+Code+Pro" rel="stylesheet">
+        <style type="text/css">
+            body {  
+                background-color: white;
+                color: black;
+            }
+            #mainHeader {
+                font-family: 'Source Code Pro', monospace;
+                text-align: center;
+                padding: 20px;
+                display: inline-block;
+                border-radius: 20px;
+                background-color: black;
+                color: white;
+                margin-top: 10px;
+            }
+            hr {
+                border: 0;
+                height: 1px;
+                width: 50%;
+                background: linear-gradient(to right, black, white, black);
+            }
+
+            #hi {
+                font-style: italic; 
+                font-size: 48px; 
+                font-family: 'Open Sans', sans-serif;
+                text-align: center;
+                padding: 20px;
+            }
+            p {
+                font-family: 'Roboto Slab', serif;
+                text-align: center;
+                font-size: 20px;
+                padding: 20px;
+            }
+            #about {
+                display: inline-block;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="text-align: center">
+            <h1 id="mainHeader"> 
+                /* PETER DAVIS */
+            </h1>
+        </div>
+        <h1 id="hi">
+            Hi.
+        </h1>
+        <hr />
+        <p>
+            I'm Peter and I like Web development.
+        </p>
+
+        <script type="text/javascript">
+            var colors = [255, 255, 255, 0, 0, 0];
+
+            var down = true;
+
+            setInterval(function() {
+
+                if (down) {
+                    colors[0]--;
+                    colors[1]--;
+                    colors[2]--;
+                    colors[3]++;
+                    colors[4]++;
+                    colors[5]++;
+                }
+               else if (!down) {
+                    colors[0]++;
+                    colors[1]++;
+                    colors[2]++;
+                    colors[3]--;
+                    colors[4]--;
+                    colors[5]--;
+               }
+               if (colors[0] <= 1 && down) {
+                    down = false;
+               }
+               else if (colors[0] >= 255 && !down) {
+                   down = true;
+               }
+                document.body.style.backgroundColor = "rgb(" + colors[0] + "," + colors[1] + "," + colors[2] + ")";
+                document.body.style.color = "rgb(" + colors[3] + "," + colors[4] + "," + colors[5] + ")";
+            }, 75);
+        </script>
+    </body>
 </html>
