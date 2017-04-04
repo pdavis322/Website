@@ -15,7 +15,14 @@
                 border-radius: 20px;
                 background-color: black;
                 color: white;
+                cursor: pointer;
                 margin-top: 10px;
+                transition: 0.5s;
+                -webkit-transition: 0.5s;
+            }
+            #mainHeader:hover {
+				color: black;
+				background-color: white;
             }
             hr {
                 border: 0;
@@ -34,8 +41,7 @@
             p {
                 font-family: 'Roboto Slab', serif;
                 text-align: center;
-                font-size: 20px;
-                padding: 20px;
+                padding: 5px;
             }
             #about {
                 display: inline-block;
@@ -46,15 +52,15 @@
 				border-radius: 100px;
 				display: inline-block;
 				outline: none;
-				width: 200px;
-				height: 200px;
+				width: 100px;
+				height: 100px;
 				margin-left: 3%;
-				box-shadow: 10px 10px 0 black;
-                -moz-box-shadow: 10px 10px 0 black;
+				box-shadow: 5px 5px 0 black;
+                -moz-box-shadow: 5px 5px 0 black;
 				margin-right: 3%;
 				transition: 1s;
 				-webkit-transition: 1s;
-				font-size: 40px;
+				font-size: 20px;
 				font-family: "Open Sans", sans-serif;
 				color: white;
 				text-shadow: 0 0 10px black, 0 0 10px black, 0 0 10px black;
@@ -67,59 +73,106 @@
             button:active {
 				background-color: black;
             }
+			
+			#content {
+				background-color: white;
+				font-family: "Roboto Slab", serif;
+				max-width: 80%;
+				text-align: center;
+				margin: 0 auto;
+			}
+			#content > p {
+				font-size: 20px;
+				padding: 15px;
+				line-height: 200%;
+			}
+			#content > img {
+				text-align: left;
+			}
 
+			#tutorialTitle {
+				font-family: "Open Sans", sans-serif;
+			}
+			.sectionTitle {
+				font-family: "Open Sans", sans-serif;
+			}
+			/* "important" */
+			.imp {
+				font-weight: bold;
+			}
+			
         </style>
     </head>
     <body>
         <div style="text-align: center">
-            <h1 id="mainHeader"> 
+           
+			<button id="about" onclick="buttonClicked(0);">About</button>
+			<button id="games" onclick="buttonClicked(1);">Games</button>
+             <h1 id="mainHeader" onclick="headerClicked();"> 
                 /* peter davis */
             </h1>
-        </div>
-        <h1 id="hi">
-            Hi.
-        </h1>
-        <hr />
-        <p>
-            I'm Peter and I like Web development.
-        </p>
-        <div style="text-align: center; ">
-			<button id="about" onclick="buttonClicked(0)">About</button>
-			<button id="games" onclick="buttonClicked(1)">Games</button>
 			<button id="tutorials" onclick="buttonClicked(2)">Tutorials</button>
-			<button id="misc" onclick="buttonClicked(3)" style="font-size:35px">This Website</button>
+			<button id="misc" onclick="buttonClicked(3)" style="font-size:17px">This Website</button>
 		</div>
+		<div id="content">
+			<h1 id="tutorialTitle">
+				Introduction to HTML!
+			</h1>
+			<hr />
+			<p>In this tutorial, I'll explain the basics of the language and a bit of its interaction with JavaScript and CSS. </p>
+			<h2 class="sectionTitle">
+				HTML, Browsers, and the Web
+			</h2>
+			<img src="browsers.jpg" width="384px" height="216px"/>
+			<p>
+				All Web pages consist of at least one HTML file. Think of HTML as a foreign language. Your computer can't understand this language, so you need something to translate for
+				it. That's the browser's job. Browsers like Google Chrome, Mozilla Firefox, and Microsoft Edge interpret the HTML and display it on a Web page like this one. These HTML
+				files are usually hosted on the Internet. <br /> <br />Let's think of a Web page as a school. The HTML files are just the stuff in the school: the building, the desks, the 
+				textbooks. Students could learn with just textbooks, but it would be really boring, right? That's why we have <span class=imp>JavaScript</span>.<br /> 
+				<br /> <img src="js.png" width="300px" height="300px" style="float:left; display: inline; max-width: 300px; max-height: 300px;"/>Think of JavaScript as the teachers in the
+				school. Teachers (good ones, at least) make learning interesting and fun.  
+			</p>
+			<p>
+			
+			</p>
+		</div>
+
         <script type="text/javascript">
             var colors = [255, 255, 255, 0, 0, 0];
 
             var down = true;
             var clicked = false;
+            
+            function headerClicked() {
+				window.location.href = "index.html";
+            }
+            
 			var buttons = [document.getElementById("about"), document.getElementById("games"), document.getElementById("tutorials"), document.getElementById("misc")];
 			function buttonClicked(whichButton) {
-			
+				
 				clicked = true;
 				buttons[whichButton].style.transition = "0.3s";
 				buttons[whichButton].style.webkitTransition = "0.3s";
-                buttons[whichButton].style.boxShadow = "5px 5px 0 black";
-                buttons[whichButton].style.transform = "translate(10px, 10px)";
+                buttons[whichButton].style.boxShadow = "0px 0px 0 black";
+                buttons[whichButton].style.transform = "translate(5px, 5px)";	
 				//buttons[whichButton].style.backgroundColor = "black";
 				
 				
                 window.setTimeout(function() {
                 	buttons[whichButton].style.transition = "1s";
 				    buttons[whichButton].style.webkitTransition = "1s";
-                    buttons[whichButton].style.boxShadow = "10px 10px 0 black";
-                    buttons[whichButton].style.transform = "translate(-10px, -10px)";
-                }, 300);
-				
-				window.setTimeout(function() {
-					switch (whichButton) {
-						case 2: window.location.href = "tutorials.html";
-						break;
-						default: alert("This page is currently under construction. Check back later!");
-						break;
-					}
-				}, 1100);
+                    buttons[whichButton].style.boxShadow = "5px 5px 0 black";
+                    buttons[whichButton].style.transform = "translate(-5px, -5px)";
+                }, 300)
+
+                window.setTimeout(function() {
+                    switch (whichButton) {
+                        case 2: window.location.href = "tutorials.html";
+                        break;
+                        default: alert("This page is currently under construction. Check back later!");
+                        break;
+                    }
+                }, 1100);
 
 
 				
@@ -149,34 +202,6 @@
 					}
 				}
 			}, 2000);
-            /*setInterval(function() {
-
-                if (down) {
-                    colors[0]--;
-                    colors[1]--;
-                    colors[2]--;
-                    colors[3]++;
-                    colors[4]++;
-                    colors[5]++;
-                }
-               else if (!down) {
-                    colors[0]++;
-                    colors[1]++;
-                    colors[2]++;
-                    colors[3]--;
-                    colors[4]--;
-                    colors[5]--;
-               }
-               if (colors[0] <= 1 && down) {
-                    down = false;
-               }
-               else if (colors[0] >= 255 && !down) {
-                   down = true;
-               }
-                document.body.style.backgroundColor = "rgb(" + colors[0] + "," + colors[1] + "," + colors[2] + ")";
-                document.body.style.color = "rgb(" + colors[3] + "," + colors[4] + "," + colors[5] + ")";
-            }, 75);
-            */
         </script>
     </body>
 </html>
