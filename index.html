@@ -1,14 +1,14 @@
 <!doctype html>
 <html>
     <head>
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300i|Roboto+Slab|Source+Code+Pro" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300i|Roboto+Slab|Inconsolata" rel="stylesheet">
         <style type="text/css">
             body {  
                 background-color: #d4d4d4;
                 color: black;
             }
             #mainHeader {
-                font-family: 'Source Code Pro', monospace;
+                font-family: 'Inconsolata', monospace;
                 text-align: center;
                 padding: 20px;
                 display: inline-block;
@@ -41,7 +41,7 @@
                 display: inline-block;
             }
             button {
-				text-outline: none;
+				
 				border: 0 none;
 				border-radius: 100px;
 				display: inline-block;
@@ -49,6 +49,8 @@
 				width: 200px;
 				height: 200px;
 				margin-left: 3%;
+				box-shadow: 10px 10px 0 black;
+                -moz-box-shadow: 10px 10px 0 black;
 				margin-right: 3%;
 				transition: 1s;
 				-webkit-transition: 1s;
@@ -71,7 +73,7 @@
     <body>
         <div style="text-align: center">
             <h1 id="mainHeader"> 
-                /* PETER DAVIS */
+                /* peter davis */
             </h1>
         </div>
         <h1 id="hi">
@@ -85,7 +87,7 @@
 			<button id="about" onclick="buttonClicked(0)">About</button>
 			<button id="games" onclick="buttonClicked(1)">Games</button>
 			<button id="tutorials" onclick="buttonClicked(2)">Tutorials</button>
-			<button id="misc" onclick="buttonClicked(3)">Misc.</button>
+			<button id="misc" onclick="buttonClicked(3)" style="font-size:35px">This Website</button>
 		</div>
         <script type="text/javascript">
             var colors = [255, 255, 255, 0, 0, 0];
@@ -96,12 +98,20 @@
 			function buttonClicked(whichButton) {
 			
 				clicked = true;
-				buttons[whichButton].style.transition = "0s";
-				buttons[whichButton].style.webkitTransition = "0s";
-				buttons[whichButton].style.transform = "translate(10px, 10px);"
-				buttons[whichButton].style.backgroundColor = "black";
-				buttons[whichButton].style.boxShadow = "none";
-				alert("This page is currently under construction. Check back later!");
+				buttons[whichButton].style.transition = "0.3s";
+				buttons[whichButton].style.webkitTransition = "0.3s";
+                buttons[whichButton].style.boxShadow = "5px 5px 0 black";
+                buttons[whichButton].style.transform = "translate(10px, 10px)";
+				//buttons[whichButton].style.backgroundColor = "black";
+				
+				//alert("This page is currently under construction. Check back later!");
+                window.setTimeout(function() {
+                	buttons[whichButton].style.transition = "1s";
+				    buttons[whichButton].style.webkitTransition = "1s";
+                    buttons[whichButton].style.boxShadow = "10px 10px 0 black";
+                    buttons[whichButton].style.transform = "translate(-10px, -10px)";
+                }, 300)
+
 				
 			}
 			
@@ -114,8 +124,9 @@
 					for (var i = 0; i < buttons.length; i++) {
 					var color = randomColor();
 					if (!clicked) {
+                        
 						buttons[i].style.backgroundColor = randomColor();
-						buttons[i].style.boxShadow = "10px 10px 0 black;"
+                        buttons[i].style.border = "none";
 					}
 				}
 			setInterval(function() {
@@ -123,8 +134,8 @@
 				for (var i = 0; i < buttons.length; i++) {
 					var color = randomColor();
 					if (!clicked) {
+                        buttons[i].style.border = "none";
 						buttons[i].style.backgroundColor = randomColor();
-						buttons[i].style.boxShadow = "10px 10px 0 black;"
 					}
 				}
 			}, 2000);
