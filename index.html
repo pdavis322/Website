@@ -3,22 +3,10 @@
     <head>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300i|Roboto+Slab|Inconsolata" rel="stylesheet">
         <style type="text/css">
-			@keyframes bodyAnimation {
-				0% {
-					background-color: white;
-				}
-				50% {
-					background-color: black;
-				}
-				100% {
-					background-color: white;
-				}
-			}
+
             body {  
                 color: black;
-				animation-name: bodyAnimation;
-				animation-duration: 120s;
-				animation-iteration-count: infinite;
+                background: gainsboro;
             }
             #mainHeader {
                 font-family: 'Inconsolata', monospace;
@@ -92,12 +80,10 @@
             </h1>
         </div>
         <h1 id="hi">
-            Pretentious greeting here
-        </h1>
+asdf        </h1>
         <hr />
         <p>
-            Pretentious and quirky description here
-        </p>
+asdf        </p>
         <div style="text-align: center; ">
 			<button id="about" onclick="buttonClicked(0)">About</button>
 			<button id="games" onclick="buttonClicked(1)">Games</button>
@@ -167,35 +153,8 @@
 						buttons[i].style.backgroundColor = randomColor();
 					}
 				}
-			}, 2000);
-            /*setInterval(function() {
-
-                if (down) {
-                    colors[0]--;
-                    colors[1]--;
-                    colors[2]--;
-                    colors[3]++;
-                    colors[4]++;
-                    colors[5]++;
-                }
-               else if (!down) {
-                    colors[0]++;
-                    colors[1]++;
-                    colors[2]++;
-                    colors[3]--;
-                    colors[4]--;
-                    colors[5]--;
-               }
-               if (colors[0] <= 1 && down) {
-                    down = false;
-               }
-               else if (colors[0] >= 255 && !down) {
-                   down = true;
-               }
-                document.body.style.backgroundColor = "rgb(" + colors[0] + "," + colors[1] + "," + colors[2] + ")";
-                document.body.style.color = "rgb(" + colors[3] + "," + colors[4] + "," + colors[5] + ")";
-            }, 75);
-            */
+			}, 3500);
+           
         </script>
     </body>
 </html>

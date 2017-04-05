@@ -3,9 +3,10 @@
     <head>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300i|Roboto+Slab|Inconsolata" rel="stylesheet">
         <style type="text/css">
+
             body {  
-                background-color: #d4d4d4;
                 color: black;
+				background-color: gainsboro;
             }
             #mainHeader {
                 font-family: 'Inconsolata', monospace;
@@ -80,16 +81,17 @@
 				max-width: 80%;
 				text-align: center;
 				margin: 0 auto;
+				min-height: 200%;
 			}
 			#content > p {
 				font-size: 20px;
 				padding: 15px;
 				line-height: 200%;
 			}
-			#content > img {
-				text-align: left;
+		
+			img {
+				padding: 10px;
 			}
-
 			#tutorialTitle {
 				font-family: "Open Sans", sans-serif;
 			}
@@ -98,7 +100,8 @@
 			}
 			/* "important" */
 			.imp {
-				font-weight: bold;
+				text-decoration: underline;
+				
 			}
 			
         </style>
@@ -121,16 +124,35 @@
 			<hr />
 			<p>In this tutorial, I'll explain the basics of the language and a bit of its interaction with JavaScript and CSS. </p>
 			<h2 class="sectionTitle">
-				HTML, Browsers, and the Web
+				The Languages of the Internet
 			</h2>
 			<img src="browsers.jpg" width="384px" height="216px"/>
 			<p>
 				All Web pages consist of at least one HTML file. Think of HTML as a foreign language. Your computer can't understand this language, so you need something to translate for
 				it. That's the browser's job. Browsers like Google Chrome, Mozilla Firefox, and Microsoft Edge interpret the HTML and display it on a Web page like this one. These HTML
-				files are usually hosted on the Internet. <br /> <br />Let's think of a Web page as a school. The HTML files are just the stuff in the school: the building, the desks, the 
-				textbooks. Students could learn with just textbooks, but it would be really boring, right? That's why we have <span class=imp>JavaScript</span>.<br /> 
-				<br /> <img src="js.png" width="300px" height="300px" style="float:left; display: inline; max-width: 300px; max-height: 300px;"/>Think of JavaScript as the teachers in the
-				school. Teachers (good ones, at least) make learning interesting and fun.  
+				files are usually hosted on the Internet. 
+				<br /> <br />Let's think of a Web page as a school. The HTML files are just the stuff in the school: the building, the desks, the 
+				textbooks. Students could learn with just textbooks, but it would be really boring, right? That's why we have <span class=imp>JavaScript</span>.
+				<br /> 
+				<br /> <img src="js.png" width="200px" height="200px" style="float:left;  max-width: 200px; max-height: 200px;"/>
+				Think of JavaScript as the teachers in the school. Teachers <span style="vertical-align: super; font-size: 12px;">hopefully</span> make learning fun and engaging. JavaScipt makes websites <span class="imp">dynamic</span>
+				, which means that users can interact with them. JavaScript differs from HTML in that it's a programming language. Don't be scared, though. JavaScript is much less strict than more
+				traditional languages such as Java and C++, so it's a great way to learn the concepts. 
+				<br /> <br />
+				<img src="Logo-CSS3.svg" width="200px" style="float: right;max-width: 200px;"/>
+				Back to our school metaphor, we now have both teachers and learning materials. 
+				
+				But the school is still pretty boring without any decorations.
+				That's where <span class="imp">CSS</span>, or Cascading Style Sheets, comes in. CSS is the posters and paintings of our virtual school. In Internet 
+				terms, CSS can change a Web page's fonts, colors, alignment, and pretty much anything. CSS is essential in making a Web page look interesting and attractive to users.
+				<br />
+				<br />
+				In summary, HTML controls the content of a Web page, JavaScript controls what it does, and CSS controls what it looks like.
+				<br />
+				<br />
+				Click here to progress to the next section, where we'll create our very own HTML file!
+				
+
 			</p>
 			<p>
 			
@@ -184,14 +206,14 @@
 				}
 				return "rgb(" + random() + "," + random() + "," + random() + ")";
 			}
-					for (var i = 0; i < buttons.length; i++) {
-					var color = randomColor();
-					if (!clicked) {
-                        
-						buttons[i].style.backgroundColor = randomColor();
-                        buttons[i].style.border = "none";
-					}
+			for (var i = 0; i < buttons.length; i++) {
+				var color = randomColor();
+				if (!clicked) {
+                    buttons[i].style.backgroundColor = randomColor();
+                    buttons[i].style.border = "none";
 				}
+			}
+		
 			setInterval(function() {
 				
 				for (var i = 0; i < buttons.length; i++) {
@@ -201,7 +223,8 @@
 						buttons[i].style.backgroundColor = randomColor();
 					}
 				}
-			}, 2000);
+		
+			}, 3500);
         </script>
     </body>
 </html>
