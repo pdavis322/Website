@@ -1,6 +1,9 @@
 <!doctype html>
 <html>
     <head>
+        <title>
+            Home
+        </title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300i|Roboto+Slab|Inconsolata" rel="stylesheet">
         <style type="text/css">
 
@@ -80,10 +83,12 @@
             </h1>
         </div>
         <h1 id="hi">
-asdf        </h1>
+			Prentious greeting
+		</h1>
         <hr />
         <p>
-asdf        </p>
+			Quirky and also pretentious description
+        </p>
         <div style="text-align: center; ">
 			<button id="about" onclick="buttonClicked(0)">About</button>
 			<button id="games" onclick="buttonClicked(1)">Games</button>
@@ -98,7 +103,7 @@ asdf        </p>
 			var buttons = [document.getElementById("about"), document.getElementById("games"), document.getElementById("tutorials"), document.getElementById("misc")];
 			function buttonClicked(whichButton) {
 			
-				clicked = true;
+				//clicked = true;
 				buttons[whichButton].style.transition = "0.3s";
 				buttons[whichButton].style.webkitTransition = "0.3s";
                 buttons[whichButton].style.boxShadow = "0px 0px 0 black";
@@ -144,6 +149,14 @@ asdf        </p>
                         buttons[i].style.border = "none";
 					}
 				}
+			setTimeout(function() {
+			for (var i = 0; i < buttons.length; i++) {
+					var color = randomColor();
+					if (!clicked) {
+                        buttons[i].style.border = "none";
+						buttons[i].style.backgroundColor = randomColor();
+					}
+			}
 			setInterval(function() {
 				
 				for (var i = 0; i < buttons.length; i++) {
@@ -153,7 +166,11 @@ asdf        </p>
 						buttons[i].style.backgroundColor = randomColor();
 					}
 				}
-			}, 3500);
+			}, 3000);
+           
+			}, 1000); 
+			
+           var canvas = document.createElement("canvas");
            
         </script>
     </body>
