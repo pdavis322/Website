@@ -8,7 +8,7 @@
         <link href="prism.css" rel="stylesheet" />
         <style type="text/css">
 
-            body {  
+            body:not(code) {  
                 color: black;
 				background-color: gainsboro;
             }
@@ -44,7 +44,7 @@
                 text-align: center;
                 padding: 20px;
             }
-            p {
+            p:not(code) {
                 font-family: 'Roboto Slab', serif;
                 text-align: center;
                 padding: 5px;
@@ -80,15 +80,17 @@
 				background-color: black;
             }
 			
-			#content {
+			#content:not(code) {
 				background-color: white;
 				font-family: "Roboto Slab", serif;
 				max-width: 80%;
 				text-align: center;
 				margin: 0 auto;
 				min-height: 200%;
+				border-radius: 50px;
+				box-shadow: 0 0 5px black, 0 0 5px black;
 			}
-			#content > p {
+			p:not(code) {
 				font-size: 20px;
 				padding: 15px;
 				line-height: 200%;
@@ -154,12 +156,42 @@
 				<br />
 				<br />
 				Recall that HTML is just the "stuff" on a Web page: text, images, buttons, etc. All of this "stuff" are called <span class="imp">elements</span>. We can create elements
-				using <span class="imp">tags</span>.   
-			
+				using <span class="imp">tags</span>. Tags are written with angle brackets (< and >.) Most HTML <span class="imp">elements</span>, such as paragraphs or headers, require an opening
+				and closing tag. The closing tag is written with a backslash (/) before the name of the element. 
+				<br />
+				<br />
+				To start our Web page, we'll use a special type of tag: a doctype declaration. <br />It's written like this: <code class="lang-html">&lt;DOCTYPE html&gt;</code>
+				<br />
+				This tells our browser to expect an HTML file. Next, we'll create our HTML tags:
+				<code class="lang-markup" id="asdf">&lt;html&gt;&lt;/html&gt;</code> These tags mark the beginning and end of our website.
+				<br />
+				<br />
+				Next, we'll add the <code class="lang-html">&lt;head&gt;</code> and <code class="lang-html">&lt;body&gt;</code> tags. The head tag will contain the formatting of our website, like CSS and its title. The body tag will include the actual content
+				of the website. We'll now add a title to this section by creating a <code class="lang-html">&lt;title&gt;</code> tag in it. Add whatever name you want inside the tags. Open the HTML file in a browser, and you'll see the title on your tab.
+				<br />
+				Our code should now look like this:
+				<div style="max-width: 70%; display: block; margin: 0 auto;">
+				<pre>
+<code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;
+			My Website
+		&lt;title&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	
+	&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+				</div>
+				
 			</p>
 		</div>
 		<script type="text/javascript" src="prism.js"></script>
         <script type="text/javascript">
+		
+			
             var colors = [255, 255, 255, 0, 0, 0];
 
             var down = true;
