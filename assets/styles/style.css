@@ -111,6 +111,9 @@
 			code {
 				font-size: 18px;
 			}
+			.codeDiv {
+			max-width: 70%; display: block; margin: 0 auto;
+			}
 			iframe {
 				
 				outline: none;

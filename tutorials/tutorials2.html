@@ -9,7 +9,7 @@
         <link href="../assets/styles/style.css" rel="stylesheet" />
     </head>
     <body>
-        <div style="text-align: center">
+        <div style="text-align:center;">
            
 			<button id="about" onclick="buttonClicked(0);">About</button>
 			<button id="games" onclick="buttonClicked(1);">Games</button>
@@ -58,7 +58,7 @@
 				of the website. We'll now add a title to this section by creating a <code class="lang-html">&lt;title&gt;</code> tag in it. Add whatever name you want inside the tags. Open the HTML file in a browser, and you'll see the title on your tab.
 				<br />
 				Our code should now look like this:
-				<div style="max-width: 70%; display: block; margin: 0 auto;">
+				<div class="codeDiv">
 				<pre>
 <code class="lang-html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -79,9 +79,107 @@
 			header. Headers range from "h1" to "h6," "h1" having the largest font. Again, make the header display whatever you want. I'll use 
 			<code class="lang-html">&lt;h1&gt;My Header&lt;/&gt;</code>. Open your Web page in your browser, and you'll see something like this: 
 		</p>
-			<iframe id="iframe1" src="iframe1.html" width="500px" height="300px"></iframe>
+					<iframe id="iframe1" src="iframe1.html" width="700px" height="500px"></iframe>
+
+			<p>
+				That's not very attractive. We'll now add CSS to style our website. <br />In the head section, add a style tag: <code class="lang-html">&lt;style type="text/css"&gt;&lt;/style&gt;</code>
+				Using this tag, we can modify the style of our HTML elements. In the style tag, add a h1 modifier like this: 
+				<div class="codeDiv">
+				<pre>
+<code class="lang-html">
+&lt;style type="text/css"&gt;
+	h1 {
+	    
+	}
+&lt;/style&gt;</code>
+				</pre>
+				</div>
+											</p>
+				<p>
+				Inside these braces ({}), we can add attributes that specify the font, the color, etc. For now, we'll change the font to Arial or Helvetica, and align it to the center 
+				of our website with this code: 
+				<div class="codeDiv">
+				<pre>
+<code class="lang-html">
+&lt;style type="text/css"&gt;
+	h1 {
+	    text-align: center;
+	    font-family: Arial Helvetica, sans-serif;
+	}
+&lt;/style&gt;</code>
+				</pre>
+				</div>
+				</p>
+				<p>
+					The "Arial Helvetica, sans-serif" portion of the code denotes that the browser will first try to render the text in the Arial font, then if the user's computer
+					doesn't have that font to try Helvetica, then any sans-serif font. <br /> Now, we'll add some text to the site. In the body section of your file, add a 
+					<code class="lang-html">&lt;p&gt;</code> tag. Put a description of your website between the tags. We'll style it in the exact same way as our header.
+					<br />
+					We'll also change the background color and text color by adding a body section to our CSS
+					and adding this to it: <code class="lang-css">background-color: black; color: white;</code> You can change the colors to whatever you want.
+					<br />
+					Our code should now look like this:
+									<div class="codeDiv">
+				<pre>
+<code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;
+			My Website
+		&lt;title&gt;
+		&lt;style type="text/css"&gt;
+		h1 {
+			text-align: center;
+			font-family: Arial Helvetica, sans-serif;
+		}
+		p {
+			text-align: center;
+			font-family: Arial Helvetica, sans-serif;
+		}
+		body {
+			background-color: black;
+			color: white;
+		}
+		&lt;/style&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;p&gt;
+		But I must explain to you how all this mistaken idea of 
+		denouncing of a pleasure and praising pain was born and
+		I will give you a complete account of the system, and 
+		expound the actual teachings of the great explorer of 
+		the truth, the master-builder of human happiness. No 
+		one rejects, dislikes, or avoids pleasure itself, because 
+		it is pleasure, but because those who do not know how to 
+		pursue pleasure rationally encounter consequences that 
+		are extremely painful. Nor again is there anyone who loves 
+		or pursues or desires to obtain pain of itself, because it
+		is pain, but occasionally circumstances occur in which toil 
+		and pain can procure him some great pleasure. To take a
+		trivial example, which of us ever undertakes laborious 
+		physical exercise, except to obtain some advantage from it? 
+		But who has any right to find fault with a man who chooses
+		to enjoy a pleasure that has no annoying consequences, or 
+		one who avoids a pain that produces no resultant pleasure?
+		&lt;/p&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</code>
+				</pre>
+				</div>
+					Your website doesn't have to include Lorem Ipsum.
+				</p>
+				<p>
+				And the output:
+				</p>
+				<iframe src="iframe2.html" width="700px" height="500px"></iframe>
+				<br />
+				<p>
+					And that will conclude this tutorial! I hope you've become acquainted with the basic syntax of HTML and CSS. 
+					For a more in-depth instruction, I highly recommend <a href="https://www.w3schools.com/">w3schools</a>.
+				</p>
 		</div>
+		
 		<script type="text/javascript" src="../prism/prism.js"></script>
 		<script type="text/javascript" src="../assets/scripts/tutorial2Script.js"></script>
     </body>
-</html>
+</html>-
