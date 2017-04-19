@@ -1,0 +1,87 @@
+﻿<!doctype html>
+<html>
+    <head>
+		<title>
+			Tutorials
+		</title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300i|Roboto+Slab|Inconsolata|Oswald" rel="stylesheet">
+        <link href="../prism/prism.css" rel="stylesheet" />
+        <link href="../assets/styles/style.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div style="text-align: center">
+           
+			<button id="about" onclick="buttonClicked(0);">About</button>
+			<button id="games" onclick="buttonClicked(1);">Games</button>
+            <a href="../index.html">
+				<h1 id="mainHeader">
+					/* peter davis */
+				</h1>
+            </a>
+			<button id="tutorials" onclick="buttonClicked(2)">Tutorials</button>
+			<button id="misc" onclick="buttonClicked(3)" style="font-size:17px">This Website</button>
+		</div>
+		<div id="content">
+			<h1 id="tutorialTitle">
+				INTRODUCTION TO HTML
+			</h1>
+			<hr />
+			<h2 class="sectionTitle">
+				Creating a Web Page
+			</h2>
+			<img src="../assets/images/notepad.png" style="float:left; max-width: 300px;" />
+			<p>
+				We'll now start to create our Web page using HTML and a small amount of CSS.
+				<br />
+				<br />
+				A simple text editor such as Notepad on Windows or TextEdit on MacOS should suffice for our purposes. For a more authentic development experience,
+				I recommend using <a href="https://notepad-plus-plus.org/">Notepad++</a>, <a href="http://brackets.io">Brackets</a>, or <a href="https://atom.io/">Atom</a>.
+				<br />
+				<br />
+				Our first step is to create an HTML file. Open your editor, and create a new file called "NewWebPage.html". The name doesn't matter, but make sure to include the
+				".html" extension. 
+				<br />
+				<br />
+				Recall that HTML is just the "stuff" on a Web page: text, images, buttons, etc. All of this "stuff" are called <span class="imp">elements</span>. We can create elements
+				using <span class="imp">tags</span>. Tags are written with angle brackets (< and >.) Most HTML <span class="imp">elements</span>, such as paragraphs or headers, require an opening
+				and closing tag. The closing tag is written with a backslash (/) before the name of the element. The actual content is written inside the tags: for example, 
+				<code class="lang-html">&lt;title&gt;My Website&lt;/title&gt;</code> will give the Web page a title of "My Website."
+				<br />
+				<br />
+				To start our Web page, we'll use a special type of tag: a doctype declaration. <br />It's written like this: <code class="lang-html">&lt;DOCTYPE html&gt;</code>
+				<br />
+				This tells our browser to expect an HTML file. Next, we'll create our HTML tags:
+				<code class="lang-markup" id="asdf">&lt;html&gt;&lt;/html&gt;</code> These tags mark the beginning and end of our website.
+				<br />
+				<br />
+				Next, we'll add the <code class="lang-html">&lt;head&gt;</code> and <code class="lang-html">&lt;body&gt;</code> tags. The head tag will contain the formatting of our website, like CSS and its title. The body tag will include the actual content
+				of the website. We'll now add a title to this section by creating a <code class="lang-html">&lt;title&gt;</code> tag in it. Add whatever name you want inside the tags. Open the HTML file in a browser, and you'll see the title on your tab.
+				<br />
+				Our code should now look like this:
+				<div style="max-width: 70%; display: block; margin: 0 auto;">
+				<pre>
+<code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;
+			My Website
+		&lt;title&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	
+	&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+			</div>
+		</p>
+		<p>
+			Now we'll start adding actual text to our Web page. Add an <code class="lang-html">&lt;h1&gt;</code> tag to the body section. This will create a <span class="imp">header</span>
+			header. Headers range from "h1" to "h6," "h1" having the largest font. Again, make the header display whatever you want. I'll use 
+			<code class="lang-html">&lt;h1&gt;My Header&lt;/&gt;</code>. Open your Web page in your browser, and you'll see something like this: 
+		</p>
+			<iframe id="iframe1" src="iframe1.html" width="500px" height="300px"></iframe>
+		</div>
+		<script type="text/javascript" src="../prism/prism.js"></script>
+		<script type="text/javascript" src="../assets/scripts/tutorial2Script.js"></script>
+    </body>
+</html>

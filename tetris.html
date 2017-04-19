@@ -16,6 +16,7 @@
 			
 			var key;
 			document.addEventListener("keydown", function(e) {
+				if (shapes[shapes.length - 1]) {
 				if (shapes[shapes.length - 1].active) {
 					switch (e.keyCode) {
 							case 37: shapes[shapes.length - 1].move("left");
@@ -27,6 +28,7 @@
 							default: 
 							break;
 						}
+				}
 				}
 			}, false);
 			document.addEventListener("keyup", function(e) {
@@ -110,13 +112,15 @@
 				
 				if (occupiedSquares[0] && occupiedSquares[1]) {
 				if (occupiedSquares[0][1] === occupiedSquares[1][1]) {
+					occupiedSquares.splice(0, 2);
 					shapes.splice(0, 2);
-					alert("asdf");
 				}
 				}
 				
+				if (shapes[shapes.length - 1]) {
 				if (!shapes[shapes.length - 1].active) {
 					shapes[shapes.length] = new Shape(0, 0);
+				}
 				}
 				
 				requestAnimationFrame(update);

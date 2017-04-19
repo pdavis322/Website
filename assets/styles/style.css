@@ -1,0 +1,123 @@
+﻿  body:not(code) {  
+                color: black;
+				background-color: gainsboro;
+            }
+            #mainHeader {
+                font-family: 'Inconsolata', monospace;
+                text-align: center;
+                padding: 20px;
+                display: inline-block;
+                border-radius: 20px;
+                background-color: black;
+                color: white;
+                cursor: pointer;
+                margin-top: 10px;
+                transition: 0.5s;
+                -webkit-transition: 0.5s;
+            }
+            #mainHeader:hover {
+				color: black;
+				background-color: white;
+				
+            }
+            hr {
+                border: 0;
+                height: 1px;
+                width: 75%;
+                background: linear-gradient(to right, black, white, black);
+            }
+
+            #hi {
+                font-style: italic; 
+                font-size: 48px; 
+                font-family: 'Open Sans', sans-serif;
+                text-align: center;
+                padding: 20px;
+            }
+            p:not(code) {
+                font-family: 'Roboto Slab', serif;
+                text-align: center;
+                padding: 5px;
+            }
+            #about {
+                display: inline-block;
+            }
+            button {
+				
+				border: 0 none;
+				border-radius: 100px;
+				display: inline-block;
+				outline: none;
+				width: 100px;
+				height: 100px;
+				margin-left: 3%;
+				box-shadow: 5px 5px 0 black;
+                -moz-box-shadow: 5px 5px 0 black;
+				margin-right: 3%;
+				transition: 1s;
+				-webkit-transition: 1s;
+				font-size: 20px;
+				font-family: "Open Sans", sans-serif;
+				color: white;
+				text-shadow: 0 0 10px black, 0 0 10px black, 0 0 10px black;
+            }
+            
+            button:hover {
+				cursor: pointer;
+            }
+            
+            button:active {
+				background-color: black;
+            }
+			
+			#content:not(code) {
+				background-color: white;
+				font-family: "Roboto Slab", serif;
+				max-width: 80%;
+				text-align: center;
+				margin: 0 auto;
+				min-height: 200%;
+				border-radius: 50px;
+				box-shadow: 0 0 5px black, 0 0 5px black;
+			}
+			p:not(code) {
+				font-size: 20px;
+				padding: 15px;
+				line-height: 200%;
+			}
+		
+			img {
+				padding: 10px;
+			}
+			#tutorialTitle {
+				font-family: 'Oswald', sans-serif;		
+				padding: 20px;	
+			}
+			.sectionTitle {
+				font-family: "Open Sans", sans-serif;
+				
+			}
+			/* "important" */
+			.imp {
+				text-decoration: underline;
+				
+			}
+			
+			a, a:visited {
+				color: darkviolet;
+				font-weight: bold;
+				text-decoration: none;
+			}
+			code {
+				font-size: 18px;
+			}
+			iframe {
+				
+				outline: none;
+				border: none;
+				border: 2px solid black;
+				border-radius: 5px;
+			
+		
+			
+			}
