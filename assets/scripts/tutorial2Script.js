@@ -66,4 +66,4 @@
 			}, 3500);
 			
 			var iframes = document.getElementsByTagName("iframe");
-			iframes[0].contentDocument.body.innerHTML += "<code class='lang-html'>&lt;asdf&gt;&lt;/asdf&gt;</code>";
+			iframes[0].contentDocument.body.innerHTML = "<code class='lang-html'>&lt;asdf&gt;&lt;/asdf&gt;</code>";
