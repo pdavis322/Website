@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+    <head>
+		<title>
+			Tutorials
+		</title>
+		<link href="../prism/prism.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300i|Roboto+Slab|Inconsolata|Oswald" rel="stylesheet">
+        <link href="../assets/styles/style.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div style="text-align: center">
+           
+			<button id="about" onclick="buttonClicked(0);">About</button>
+			<button id="games" onclick="buttonClicked(1);">Games</button>
+            <a href="../index.html">
+				<h1 id="mainHeader">
+					/* peter davis */
+				</h1>
+            </a>
+            
+			<button id="tutorials" onclick="buttonClicked(2)">Tutorials</button>
+			<button id="misc" onclick="buttonClicked(3)" style="font-size:17px">This Website</button>
+		</div>
+		<div id="content">
+			<h1 id="tutorialTitle">
+				CREATING A JAVASCRIPT GAME
+			</h1>
+			<hr />
+			<p>In this tutorial, we'll create a basic HTML and JavaScript game.</p>
+			<h2 class="sectionTitle">
+				Creating the HTML File
+			</h2>
+				<p>
+				We'll create our game using the HTML canvas element. If you haven't already, I recommend reading my previous <a href="tutorials1.html">intro to HTML</a> tutorial.
+				<br />
+				First, we'll create a basic HTML page with only a canvas element with a width and height attribute of whatever you want. Mine will be 500 x 300. 
+				We'll also add an "id" attribute to the canvas element, and set it to "canvas".
+				Your code should look like this:
+				<div class="codeDiv">
+				<pre>
+<code class="lang-html">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;style type="text/css"&gt;
+		&lt;/style&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;canvas width="800" height="500" id="canvas"&gt;
+		&lt;/canvas&gt;
+		&lt;script type="text/javascript"&gt;
+		&lt;/script&gt;
+	&lt/body&gt;
+&lt;/html&gt;
+</code>
+				</pre>
+				</div>
+			</p>
+			<p>
+				Now we'll start the new stuff. To create our game, we'll draw on the canvas element using JavaScript. First, though, we'll add some CSS.
+				In the style element, make the canvas have these attributes: <code class="lang-css">display: block; margin: 0 auto; border: 1px solid black;</code> This will align the 
+				canvas to the center of your screen by displaying it as a box, and setting the margins to auto. It'll also create a 1 pixel wide solid black border, so that we can see the
+				canvas.
+				<br />
+				We'll now start using JavaScript!
+			</p>
+			<p>
+				Any programming language must contain <span class="imp">variables</span>. These variables are the same thing as they are in math, i.e. they're something that represents 
+				something else. For this tutorial, we'll focus on five types of variables: <span class="imp">integers, booleans, arrays, functions, and objects</span>.
+			</p>
+			<h2 class="sectionTitle">
+				Integers
+			</h2>
+			<p>
+				Integers in JavaScript aren't exactly what they are in math; they can be any number, including decimals and fractions (as long as they're rational.)
+			</p>
+		</div>
+		<script type="text/javascript" src="../prism/prism.js"></script>
+        <script type="text/javascript" src="../assets/scripts/script.js"></script>
+    </body>
+</html>
