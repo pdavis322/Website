@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+    <head>
+        <style type="text/css">
+            * {
+                margin: 0;
+                overflow: hidden;
+                padding: 0;
+            }
+            html, body {
+                width: 100%;
+                height: 100%;
+                
+            }
+
+            
+        </style>
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+        <img src="background.png" id="bgImg" style="display: none;"/>
+		<img src="balloon.png" id="balloon" style="display: none;" />
+		<img src="balloon2.png" id="balloon2" style="display: none;" />
+		<img src="sun.png" id="sun" style="display: none;" />
+        <script type="text/javascript">
+            var canvas = document.getElementById("canvas");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            var c = canvas.getContext("2d");
+
+            var bgImg = document.getElementById("bgImg");
+			
+			var balloon = document.getElementById("balloon");
+			var balloon2 = document.getElementById("balloon2");
+            var sun = document.getElementById("sun");
+			
+            var bgColor = [0, 97, 255];
+			
+			function Shape(img, x, y, w, h) {
+				this.img = img;
+				this.x = x;
+				this.y = y;
+				this.w = w;
+				this.h = h;
+				this.draw = function() {
+					c.drawImage(this.img, this.x, this.y, this.w, this.h);
+				}
+			}
+			
+			var shapes = [];
+			
+			shapes[0] = new Shape(balloon, canvas.width , 150, 200 * 1.51990632, 200);
+			shapes[1] = new Shape(balloon2, 0, 150, 50 , 50* 1.51990632);
+
+            function animate() {
+                c.fillStyle = "rgb(" + bgColor[0] + "," + bgColor[1] + "," + bgColor[2] + ")";
+                c.fillRect(0, 0, canvas.width, canvas.height);
+                c.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
+				shapes[0].x--;
+				shapes[0].y -= (Math.cos(shapes[0].x / 100) / 2);
+				shapes[1].x++;
+                for (var i = 0; i < shapes.length; i++) {
+					shapes[i].draw();
+				}
+				
+                requestAnimationFrame(animate);
+            }
+
+            window.setInterval(function() {
+				time();
+            }, 100);
+			
+			var down = true;
+			
+            function time() {
+					bgColor[0] -= 1;
+					bgColor[1] -= 1;
+					bgColor[2] -= 1;				
+            }
+
+            window.onload = function() {
+                animate();
+            }
+            
+        </script>
+    </body>
+</html>
