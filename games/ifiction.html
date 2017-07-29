@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html>
+    
+	<head>
+        
+		<style type="text/css">
+            
+            @import url('https://fonts.googleapis.com/css?family=Raleway:400,400i');
+            
+            body {
+                background-color: white;
+                padding: 0;
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+            
+            
+		</style>
+        
+	</head>
+    
+	<body>
+        
+		<canvas id="canvas"></canvas>
+        
+        <script type="text/javascript">
+            
+            var canvas = document.getElementById("canvas");
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            var c = canvas.getContext("2d");
+            
+            var status = 0;
+            
+            var currentWord = "";
+            
+            var color = [255, 255, 255];
+            
+            function animate() {
+                
+                c.fillStyle = "black";
+                c.fillRect(0, 0, canvas.width, canvas.height);
+                c.font = "12px Raleway";
+                c.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
+                c.fillText(currentWord, 0, canvas.height / 2);
+                
+                requestAnimationFrame(animate);
+            
+            }
+            
+            drawWords("What the fuck did you just fucking say about atheism, you little bitch? I'll have you know I graduated top of my class at MIT, and I've been involved in numerous scientific breakthroughs, and I have over 300 confirmed publications. I am trained in physics and I'm the top astronomer in the entire US scientific community. You are nothing to me but just another liberal arts major. I will wipe you the fuck out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of professors across the USA and your GPA is being reduced right now so you better prepare for the storm, maggot. The storm that wipes out the pathetic little thing you call your life. You're fucking dead, kid. I can be anywhere, anytime, and I can debate you in over seven hundred ways, and that's just with my mind. Not only am I extensively trained in particle physics, but I have access to the entire arsenal of JSTOR and I will use it to its full extent to wipe your miserable ass off the face of the continent, you little shit. If only you could have known what unholy retribution your little 'clever' comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn't, you didn't, and now you're paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You're fucking dead, kiddo.");
+            function drawWords(word) {
+            	var splitWord = word.split("");
+
+            	var index = 0;
+            	
+            	function addLetter() {
+            		currentWord += splitWord[index];
+            		index++;
+            		if (index >= splitWord.length) {
+            			window.clearInterval(interval);
+            		}
+            	}
+
+            	var interval = window.setInterval(function() {
+            		addLetter();
+            	}, 50);
+            }
+            
+            window.onload = function() {
+                animate();
+            }
+            
+            
+        </script>
+        
+	</body>
+    
+</html>
