@@ -2,9 +2,9 @@
 
 <html>
     
-	<head>
+    <head>
         
-		<style type="text/css">
+        <style type="text/css">
             
            @import url('https://fonts.googleapis.com/css?family=Special+Elite');
 
@@ -19,13 +19,13 @@
             
           
             
-		</style>
+        </style>
         
-	</head>
+    </head>
     
-	<body>
+    <body>
         
-		<canvas id="canvas"></canvas>
+        <canvas id="canvas"></canvas>
 
         <audio id="sound">
             <source src="typewriter.mp3" type="audio/mp3"></audio>
@@ -44,16 +44,16 @@
             
             var status = 0;
             
-            var drawingWord = "";
+            var drawingWord = [];
 
-            var currentWord = "";
+            var currentWord = [];
 
-            var currentWordHeight = canvas.height * .25;
+            var lines = 1;
             
             var color = [255, 255, 255];
 
             window.addEventListener("mousedown", function() {
-                drawWords("ajsdolf");
+                drawWords("Po do");
             }, false);
             
             function animate() {
@@ -63,46 +63,45 @@
                 c.font = "36px Special Elite";
                 c.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
                 
-                c.fillText(drawingWord, canvas.width / 2 - c.measureText(currentWord).width / 2, currentWordHeight);
-                
+                for (var i = 0; i < lines; i++) {
+                    c.fillText(drawingWord[i], canvas.width / 2 - c.measureText(currentWord[i]).width / 2, canvas.height * .25 + 40 * i);
+                }
+
                 requestAnimationFrame(animate);
             
             }
             
-            drawWords("Novem`ber 3rd, 1921");
+
+            drawWords("po do po dp o pdo (n)dafd;oji");
 
             function drawWords(word) {
 
-
-
-                drawingWord = "";
-
-                currentWord = word;
-
-            	var splitWord = word.split("");
-
-
-
-            	var index = 0;
-            	
-            	function addLetter() {
-            		drawingWord += splitWord[index];
-            		index++;
-            		if (index >= splitWord.length) {
-            			window.clearInterval(interval);
-                        sound.pause();
-                        sound.loop = false;
-                        
-            		}
-            	}
-
-                sound.play();
-                sound.loop = true;
-
-            	var interval = window.setInterval(function() {
-            		addLetter();
-            	}, 100);
+                var drawingLines = word.split("(n)");
                 
+                lines = drawingLines.length;
+
+                var indexes = [0];
+
+                for (var i = 0; i < lines; i++) {
+                    currentWord[i] = drawingWord[i];
+                    indexes[i + 1] = 0; 
+                }
+
+                alert(indexes);
+
+                var splitWords = [];
+
+                for (var i = 0; i < drawingLines.length; i++) {
+                    splitWords[i] = drawingLines[i].split("");
+                }
+
+                
+
+                var interval = window.setInterval(function() {
+
+
+
+                }, 100);
             }
             
             window.onload = function() {
@@ -112,6 +111,6 @@
             
         </script>
         
-	</body>
+    </body>
     
 </html>
