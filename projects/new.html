@@ -46,14 +46,16 @@
             
             var drawingWord = [];
 
-            var currentWord = [];
+            var currentWord = "";
 
-            var lines = 1;
+            var currentWordHeight = canvas.height * .25;
             
             var color = [255, 255, 255];
 
+            var lines = 1;
+
             window.addEventListener("mousedown", function() {
-                drawWords("Po do");
+                drawWords("ajsdolf");
             }, false);
             
             function animate() {
@@ -64,44 +66,47 @@
                 c.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
                 
                 for (var i = 0; i < lines; i++) {
-                    c.fillText(drawingWord[i], canvas.width / 2 - c.measureText(currentWord[i]).width / 2, canvas.height * .25 + 40 * i);
+                    c.fillText(drawingWord[i], canvas.width / 2 - c.measureText(currentWord).width / 2, currentWordHeight);
                 }
 
                 requestAnimationFrame(animate);
             
             }
             
-
-            drawWords("po do po dp o pdo (n)dafd;oji");
+            drawWords("November 3rd, 1921");
 
             function drawWords(word) {
 
-                var drawingLines = word.split("(n)");
+
+
+                drawingWord = "";
+
+                currentWord = word;
+
+                var splitWord = word.split("");
+
+
+
+                var index = 0;
                 
-                lines = drawingLines.length;
-
-                var indexes = [0];
-
-                for (var i = 0; i < lines; i++) {
-                    currentWord[i] = drawingWord[i];
-                    indexes[i + 1] = 0; 
+                function addLetter() {
+                    drawingWord += splitWord[index];
+                    index++;
+                    if (index >= splitWord.length) {
+                        window.clearInterval(interval);
+                        sound.pause();
+                        sound.loop = false;
+                        
+                    }
                 }
 
-                alert(indexes);
-
-                var splitWords = [];
-
-                for (var i = 0; i < drawingLines.length; i++) {
-                    splitWords[i] = drawingLines[i].split("");
-                }
-
-                
+                sound.play();
+                sound.loop = true;
 
                 var interval = window.setInterval(function() {
-
-
-
+                    addLetter();
                 }, 100);
+                
             }
             
             window.onload = function() {
