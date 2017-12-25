@@ -1,6 +1,8 @@
 <!doctype html>
 <html>
 	<head>
+		<link href="https://fonts.googleapis.com/css?family=Mountains+of+Christmas" rel="stylesheet">
+
 		<style type="text/css">
 			body {
 				margin: 0;
@@ -17,6 +19,9 @@
 	<body>
 	<img id="img" src="snowflake.png" width="0" height="0" style="display: none;">
 		<canvas id = "canvas"></canvas>
+		<audio autoplay loop>
+			<source src="wewishyou.mp3" type="audio/mpeg">
+		</audio>
 		<script type="text/javascript">
 			var canvas = document.getElementById("canvas");
 			var c = canvas.getContext("2d");
@@ -24,6 +29,8 @@
 			canvas.height = window.innerHeight;
 			var mousePos = [canvas.width / 2, canvas.height / 2];
 			var started = false;
+			var gameOver = [false, false];
+
 			window.setTimeout(function() {
 				started = true;
 			}, 3000);
@@ -36,6 +43,13 @@
 			canvas.addEventListener("mousedown", function(e) {
 				for (var i = 0; i < snowflakes.length; i++) {
 					if ( Math.pow(mousePos[0] - snowflakes[i].x, 2) + Math.pow(mousePos[1] - snowflakes[i].y, 2) < Math.pow(snowflakes[i].r, 2)) {
+						
+						if (snowflakes[i].golden === true) {
+							gameOver = [true, true];
+						}
+						else {
+							gameOver = [true, false]
+						}
 						snowflakes.splice(i, 1);
 					}
 				}
@@ -50,15 +64,19 @@
 				this.y = y;
 				this.r = r;
 				this.speed = speed;
+				this.golden = (Math.random() * 100 > 99) ? true : false;
 				this.draw = function() {
-					c.fillStyle = "white";
+					if (!this.golden) {
+						c.fillStyle = "white";
+					}
+					else {
+						c.fillStyle = "gold";
+					}
 					c.beginPath();
 					c.arc(this.x, this.y, this.r, 0, Math.PI * 2);
 					c.fill();
 				}
-				this.check = function() {
-
-				}
+		
 			}
 			var snowflakes = [];
 			function snow() {
@@ -70,16 +88,47 @@
 				c.fillStyle = "rgb(0, 0, 50)";
 				c.fillRect(0, 0, canvas.width, canvas.height);
 
-				for (var i = 0; i < snowflakes.length; i++) {	
-					snowflakes[i].draw();
-					snowflakes[i].y+=snowflakes[i].speed;
+				if (!started) {
+					c.font = "36px Mountains of Christmas";
+					c.fillStyle = "white";
+					c.textAlign = "center";
+					c.fillText("CLICK THE GOLDEN SNOWFLAKE!", canvas.width / 2, canvas.height / 2);
 				}
-				animateMouse();
+				if (!gameOver[0]) {
+					for (var i = 0; i < snowflakes.length; i++) {	
+					snowflakes[i].draw();
+				
+					snowflakes[i].y+=snowflakes[i].speed;
+					}
+					animateMouse();
+				}	
+				else if (gameOver[0] && gameOver[1]) {
+				c.font = "72px Mountains of Christmas";
+					c.fillStyle = "white";
+					c.textAlign = "center";
+					c.fillText("MERRY CHRISTMAS!", canvas.width / 2, canvas.height / 2);
+					c.font = "18px Mountains of Christmas";
+						c.fillText("We Wish you a Merry Christmas Kevin MacLeod (incompetech.com)  http://creativecommons.org/licenses/by/3.0/", canvas.width / 2, canvas.height * .75);
+						c.fillText("Licensed under Creative Commons: By Attribution 3.0 License", canvas.width / 2, canvas.height * .75 + 30);
+						c.fillText("http://creativecommons.org/licenses/by/3.0/", canvas.width / 2, canvas.height * .75 + 60);
+				}
+				else if (gameOver[0] && !gameOver[1]) {
+
+							c.font = "72px Mountains of Christmas";
+					c.fillStyle = "white";
+					c.textAlign = "center";
+					c.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
+							c.font = "18px Mountains of Christmas";
+						c.fillText("We Wish you a Merry Christmas Kevin MacLeod (incompetech.com)  http://creativecommons.org/licenses/by/3.0/", canvas.width / 2, canvas.height * .75);
+						c.fillText("Licensed under Creative Commons: By Attribution 3.0 License", canvas.width / 2, canvas.height * .75 + 30);
+						c.fillText("http://creativecommons.org/licenses/by/3.0/", canvas.width / 2, canvas.height * .75 + 60);
+				}
 				requestAnimationFrame(loop);
 			}
+
 			window.setInterval(function() {
-				if (started) {
-				snow();
+				if (started && !gameOver[0]) {
+					snow();
 				}
 			}, 500);
 			loop();
