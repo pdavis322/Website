@@ -27,9 +27,11 @@
 
                 window.setTimeout(function() {
                     switch (whichButton) {
+			case 0:
+			window.location.href = "../about.html";
+			break;
                         case 2:
-								window.location.href = "tutorials.html";
-						window.location.href = "";
+			window.location.href = "tutorials.html";			
                         break;
                         default: alert("This page is currently under construction. Check back later!");
                         break;

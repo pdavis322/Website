@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+	<head>
+		<style type="text/css">
+			body {
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+			}
+			canvas {
+				width: 100%;
+				cursor: none;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+	<img id="img" src="snowflake.png" width="0" height="0" style="display: none;">
+		<canvas id = "canvas"></canvas>
+		<script type="text/javascript">
+			var canvas = document.getElementById("canvas");
+			var c = canvas.getContext("2d");
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+			var mousePos = [canvas.width / 2, canvas.height / 2];
+			var started = false;
+			window.setTimeout(function() {
+				started = true;
+			}, 3000);
+			canvas.addEventListener("mousemove", function(e) {
+				if (e.clientX) {
+				mousePos[0] = e.clientX;
+				mousePos[1] = e.clientY;
+			}
+			}, false);
+			canvas.addEventListener("mousedown", function(e) {
+				for (var i = 0; i < snowflakes.length; i++) {
+					if ( Math.pow(mousePos[0] - snowflakes[i].x, 2) + Math.pow(mousePos[1] - snowflakes[i].y, 2) < Math.pow(snowflakes[i].r, 2)) {
+						snowflakes.splice(i, 1);
+					}
+				}
+			}, false);
+		
+
+			function animateMouse() {
+				c.drawImage(document.getElementById("img"), mousePos[0] - 25, mousePos[1] - 25);
+			}
+			function Snowflake(x, y, r, speed) {
+				this.x = x;
+				this.y = y;
+				this.r = r;
+				this.speed = speed;
+				this.draw = function() {
+					c.fillStyle = "white";
+					c.beginPath();
+					c.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+					c.fill();
+				}
+				this.check = function() {
+
+				}
+			}
+			var snowflakes = [];
+			function snow() {
+				for (var i = 0; i < 5; i++) {
+				snowflakes[snowflakes.length] = new Snowflake(Math.random() * canvas.width, -40, Math.random() * 40, Math.random() * 2 + 1);
+			}
+			}
+			function loop() {
+				c.fillStyle = "rgb(0, 0, 50)";
+				c.fillRect(0, 0, canvas.width, canvas.height);
+
+				for (var i = 0; i < snowflakes.length; i++) {	
+					snowflakes[i].draw();
+					snowflakes[i].y+=snowflakes[i].speed;
+				}
+				animateMouse();
+				requestAnimationFrame(loop);
+			}
+			window.setInterval(function() {
+				if (started) {
+				snow();
+				}
+			}, 500);
+			loop();
+		</script>
+	</body>
+</html>
