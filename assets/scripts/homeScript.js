@@ -31,6 +31,8 @@
 						break;
                         case 2: window.location.href = "tutorials/tutorials.html";
                         break;
+                        case 3: window.location.href = "thiswebsite.html";
+                        break;
                         default: alert("This page is currently under construction. Check back later!");
                         break;
                     }

@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+    <head>
+		<title>
+			About Me
+		</title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300i|Roboto+Slab|Inconsolata|Oswald" rel="stylesheet">
+        <link href="prism/prism.css" rel="stylesheet" />
+        <link href="assets/styles/style.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div style="text-align:center;">
+           
+			<button id="about" onclick="buttonClicked(0);">About</button>
+			<button id="games" onclick="buttonClicked(1);">Projects</button>
+            <a href="index.html">
+				<h1 id="mainHeader">
+					/* peter davis */
+				</h1>
+            </a>
+			<button id="tutorials" onclick="buttonClicked(2)">Tutorials</button>
+			<button id="misc" onclick="buttonClicked(3)" style="font-size:17px">This Website</button>
+		</div>
+		<div id="content">
+			<h1 id="tutorialTitle">
+				THIS WEBSITE
+			</h1>
+			<hr />
+			
+			<p style="padding: 50px; ">
+				If you want to understand how an element of this Web site works, simply right-click it and select "Inspect" using Google Chrome.
+				<br />
+				I wrote this site with the intention of making it as readable as possible, so I hope it helps!
+				<br />
+				<br />
+				And because I get a lot of requests, here's the CSS code for the buttons on the home page:
+<div class="codeDiv">
+				<pre>
+<code class="lang-html">
+&lt;style type="text/css"&gt;
+ button {
+				
+	border: 0 none;
+	border-radius: 100px;
+	display: inline-block;
+	outline: none;
+	width: 200px;
+	height: 200px;
+	margin-left: 3%;
+	box-shadow: 10px 10px 0 black;
+    -moz-box-shadow: 10px 10px 0 black;
+	margin-right: 3%;
+	transition: 1s;
+	-webkit-transition: 1s;
+	font-size: 35px;
+	font-family: "Open Sans", sans-serif;
+	color: white;
+	text-shadow: 0 0 10px black, 0 0 10px black, 0 0 10px black;
+}
+                     
+button:hover {
+	cursor: pointer;
+}            
+   
+&lt;/style&gt;</code>
+				</pre>
+				</div>
+				<br />
+			</p><p>
+				Most of it should be fairly self-explanatory, but actually animating the buttons is a bit more complex. See <a href="https://www.w3schools.com/js/js_htmldom_css.asp">here</a> for info on controlling CSS with with JavaScript.
+			</p>
+			<br />
+		</div>
+		
+		<script type="text/javascript" src="prism/prism.js"></script>
+		<script type="text/javascript" src="assets/scripts/script.js"></script>
+    </body>
+</html>-
