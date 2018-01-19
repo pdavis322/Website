@@ -30,6 +30,9 @@
 			case 0:
 			window.location.href = "../about.html";
 			break;
+						case 1:
+			window.location.href = "../projects/projects.html";
+			break;
                         case 2:
 			window.location.href = "tutorials.html";			
                         break;

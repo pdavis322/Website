@@ -29,6 +29,8 @@
                     switch (whichButton) {
 						case 0: window.location.href = "about.html";
 						break;
+						case 1: window.location.href = "projects/projects.html";
+						break;						
                         case 2: window.location.href = "tutorials/tutorials.html";
                         break;
                         case 3: window.location.href = "thiswebsite.html";
