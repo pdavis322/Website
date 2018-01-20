@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+		<style type="text/css">
+			html, body{
+				overflow: hidden;
+				padding: 0;
+				margin: 0;
+				font-family: 'Open Sans', sans-serif;
+			}
+			label {
+				padding: 5px;
+			}
+			input {
+				padding: 5px;
+			}
+			input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+			#inputDiv {
+			
+				background-color: black;
+				color: white;
+
+			}
+
+			button {
+				display: inline-block;
+				margin-left: 15px;
+			}
+		</style>
+	</head>
+	<body>
+	
+	<div style="padding: 20px; text-align: center;" id="inputDiv">
+	<label for="startR">Starting color (0-255)</label>
+	<label for="startR">R</label>
+	<input type="number" id="startR" value="255" style="width: 30px; text-align: right;"/>
+	<label for="startG">G</label>
+	<input type="number" id="startG" value="0" style="width: 30px; text-align: right;"/>
+	<label for="startB">B</label>
+	<input type="number" id="startB" value="0" style="width: 30px; text-align: right;"/>
+
+	<label for="endR">Ending color (0-255)</label>
+	<label for="endR">R</label>
+	<input type="number" id="endR" value="255" style="width: 30px; text-align: right;"/>
+	<label for="endG">G</label>
+	<input type="number" id="endG" value="169" style="width: 30px; text-align: right;"/>
+	<label for="startB">B</label>
+	<input type="number" id="endB" value="0" style="width: 30px; text-align: right;"/>
+
+	<label for="num">Number of rectangles (2-500) </label>
+	<input type="number" id="num" value="7" style="width: 30px; text-align: right;" min="0"/>
+	<button onclick="generate(false)">Submit</button>
+</div>
+		<canvas id="canvas"></canvas>
+
+	
+		<script type="text/javascript">
+			var canvas = document.getElementById("canvas");
+			var c = canvas.getContext("2d");
+		
+			
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+
+
+			function generate(beginning) {	
+				var n = parseInt(document.getElementById("num").value, 10);
+				var starts = [parseInt(document.getElementById("startR").value, 10), parseInt(document.getElementById("startG").value, 10), parseInt(document.getElementById("startB").value, 10)];
+				var ends = [parseInt(document.getElementById("endR").value, 10), parseInt(document.getElementById("endG").value, 10), parseInt(document.getElementById("endB").value, 10)];
+				
+
+				
+
+				var exit = false;
+
+				if (!beginning) {
+
+					for (var i = 0; i < 3; i++) {
+						if (!Number.isInteger(starts[i]) || !Number.isInteger(ends[i]) || !Number.isInteger(n)) {
+							alert("Input must be numerical");
+							exit = true;
+						}
+						else if (starts[i] > 255 || ends[i] > 255 || starts[i] < 0 || ends[i] < 0) {
+							alert("Start and end colors must be from 0-255");
+							exit = true;
+						}
+						else if (n > 500 || n < 2) {
+							alert("Number of rectangles must be from 2-500");
+							exit = true;
+						}
+					} 
+
+				}
+
+
+				if (!exit) {
+
+					var dR  = (ends[0] - starts[0]) / n;
+				var dG = (ends[1] - starts[1]) / n;
+				var dB = (ends[2] - starts[2]) / n;
+
+				for (var i = 0; i < n; i++) {
+				
+					if (i === 0) {
+						c.fillStyle = "rgb(" + starts[0] + "," + starts[1] + "," + starts[2] + ")";
+					}
+					else {
+						c.fillStyle = "rgb(" + (starts[0] + Math.floor((i + 1) * dR)) + "," + (starts[1] + Math.floor((i + 1) * dG)) + "," + (starts[2] + Math.floor((i + 1) * dB)) + ")";
+					}
+					c.fillRect(i * (canvas.width / n), 0, (canvas.width / n) + 1, canvas.height);
+				}
+
+			}
+			}
+
+			generate(true);
+
+		
+			
+		</script>
+	
+	</body>
+</html>

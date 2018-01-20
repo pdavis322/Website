@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+	<head>
+		<style type="text/css">
+			html, body{
+				overflow: hidden;
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+	<label for="red">Red</label>
+	<input type="range" id="red" oninput="changeBG()" step="1" min="0" max="255" value="0"/>
+		<canvas id="canvas"></canvas>
+		<script type="text/javascript">
+			var canvas = document.getElementById("canvas");
+			var c = canvas.getContext("2d");
+			var n = prompt("enter number of rectangles");
+			var starts = [255, 0, 0];
+			var ends = [0, 0, 0];
+			
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+			var deltas = [Math.abs(ends[0] - starts[0]) / n, Math.abs(ends[1] - starts[1]) / n, Math.abs(ends[2] - starts[2]) / n];
+			var dR  = (ends[0] - starts[0]) / n;
+			var dG = (ends[1] - starts[1]) / n;
+			var dB = (ends[2] - starts[2]) / n;
+			for (var i = 0; i < n; i++) {
+				
+				if (i === 0) {
+					c.fillStyle = "rgb(" + starts[0] + "," + starts[1] + "," + starts[2] + ")";
+				}
+				else {
+					c.fillStyle = "rgb(" + (starts[0] + Math.floor((i + 1) * dR)) + "," + (starts[1] + Math.floor((i + 1) * dG)) + "," + (starts[2] + Math.floor((i + 1) * dB)) + ")";
+				}
+				c.fillRect(i * (canvas.width / n), 0, (canvas.width / n) + 1, canvas.height);
+			}
+			
+		</script>
+	</body>
+</html>
