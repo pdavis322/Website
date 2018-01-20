@@ -2,12 +2,22 @@
 <html>
 	<head>
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+		<link href="spectrum/spectrum.css" rel="stylesheet"> 
 		<style type="text/css">
+			*::selection {
+				background-color: white;
+				color: black;
+			}
+			*::-moz-selection {
+				background-color: white;
+				color: black;
+			}
 			html, body{
 				overflow: hidden;
 				padding: 0;
 				margin: 0;
 				font-family: 'Open Sans', sans-serif;
+				font-size: 18px;
 			}
 			label {
 				padding: 5px;
@@ -15,11 +25,10 @@
 			input {
 				padding: 5px;
 			}
-			input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
-}
+			input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { 
+  				-webkit-appearance: none; 
+  				margin: 0; 
+			}
 			#inputDiv {
 			
 				background-color: black;
@@ -29,36 +38,74 @@ input[type=number]::-webkit-outer-spin-button {
 
 			button {
 				display: inline-block;
+			
+				font-family: 'Open Sans', sans-serif;
+				font-size: 14px;
+				padding: 7px;
+				outline: none;
+				border: none;
+				color: black;
+				background-color: white;
+				border: 1px solid white;
 				margin-left: 15px;
+
 			}
+			button:hover {
+				border: 1px solid white;
+				color: white;
+				background-color: black;
+				cursor: pointer;
+			}
+			input[type=number] {
+				width: 30px;
+				text-align: right;
+				padding: 7px;
+				font-size: 14px;
+				border: 1px solid white;
+				padding: 7px;
+				display: inline-block;
+				outline: none;
+				font-family: "Open Sans", sans-serif;
+			}
+			input[type=number]::selection {
+				background-color: lightgray;
+			}
+			input[type=number]::-moz-selection {
+				background-color: lightgray;
+			}	
 		</style>
 	</head>
 	<body>
 	
 	<div style="padding: 20px; text-align: center;" id="inputDiv">
 	<label for="startR">Starting color (0-255)</label>
+	
 	<label for="startR">R</label>
-	<input type="number" id="startR" value="255" style="width: 30px; text-align: right;"/>
+	<input type="number" id="startR" value="255"/>
 	<label for="startG">G</label>
-	<input type="number" id="startG" value="0" style="width: 30px; text-align: right;"/>
+	<input type="number" id="startG" value="0"/>
 	<label for="startB">B</label>
-	<input type="number" id="startB" value="0" style="width: 30px; text-align: right;"/>
+	<input type="number" id="startB" value="0"/>
 
 	<label for="endR">Ending color (0-255)</label>
 	<label for="endR">R</label>
-	<input type="number" id="endR" value="255" style="width: 30px; text-align: right;"/>
+	<input type="number" id="endR" value="255"/>
 	<label for="endG">G</label>
-	<input type="number" id="endG" value="169" style="width: 30px; text-align: right;"/>
+	<input type="number" id="endG" value="169"/>
 	<label for="startB">B</label>
-	<input type="number" id="endB" value="0" style="width: 30px; text-align: right;"/>
+	<input type="number" id="endB" value="0"/>
 
 	<label for="num">Number of rectangles (2-500) </label>
-	<input type="number" id="num" value="7" style="width: 30px; text-align: right;" min="0"/>
+	<input type="number" id="num" value="10" min="0"/>
+
+
 	<button onclick="generate(false)">Submit</button>
 </div>
 		<canvas id="canvas"></canvas>
 
-	
+		<script src="spectrum/spectrum.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+
 		<script type="text/javascript">
 			var canvas = document.getElementById("canvas");
 			var c = canvas.getContext("2d");
