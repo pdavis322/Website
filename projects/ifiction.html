@@ -2,38 +2,86 @@
 <html>
 	<head>
 		<style type="text/css">
+			html {
+				background-color: black;
+				color: white;
+				font-family: 'Arial', sans-serif;
+			}
 			button {
 				display: block;
 				margin: 0 auto;
+				color: white;
+				outline: none;
+				background-color: black;
+				padding: 50px;
+				width: 80%;
+				border: 1px solid white;
 			}
 		</style>
 	</head>
 	<body>
-		<h1 style="text-align: center;">
+		<h1 style="text-align: center;" id="header">
 			?
 		</h1>
 		<script type="text/javascript">
 			var status = 1;
+			var buttonsArray = [];
 			function createChoices(choiceArray) {
-				var buttonsArray = [];
+				
 				for (i = 0; i < choiceArray.length; i++) {
 					buttonsArray[i] = document.createElement("button");
 					buttonsArray[i].appendChild(document.createTextNode(choiceArray[i][0]));
 					document.body.appendChild(buttonsArray[i]);
 					buttonsArray[i].id = choiceArray[i][1];
 					buttonsArray[i].onclick = function() {
-						handleChoices(this.id);
+						story(this.id);
 					}
 				}
 				
 			}
 			
-			function handleChoices(buttonID) {
+			var index = 0;
+			var strArr;
+			
+			var inv;
+			
+			var updating = false;
+			
+			function updateHead(word) {
+				updating = true;
+				strArr = word.split("");		
+				document.getElementById("header").innerHTML = "&zwnj;";
+				inv = setInterval(function() {
+					
+					document.getElementById("header").innerHTML += strArr[index];
+					index++;
+					if (index >= strArr.length) {
+						clearInterval(inv);
+						updating = false;
+						inv = 0;
+						index = 0;
+					}
+				}, 100);	
+		
+			}
+			
+		
+
+			updateHead("?");
+			
+			function handleChoices() {
+				for (i = 0; i < buttonsArray.length; i++) {
+					buttonsArray[i].remove();
+				}
+			}
+			
+			function story(buttonID) {
+				handleChoices();
 				switch (status) {
 					case 1:
 					
-						if (buttonID == "1a") {
-							alert("wrong");
+						if (buttonID == "1b") {
+							updateHead(" wrong");
 						}
 						else {
 							alert("yes");
