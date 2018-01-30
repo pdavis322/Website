@@ -1,117 +1,48 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html>
-    
 	<head>
-        
 		<style type="text/css">
-            
-           @import url('https://fonts.googleapis.com/css?family=Special+Elite');
-
-            body {
-                background-color: white;
-                padding: 0;
-                margin: 0;
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-            }
-            
-          
-            
+			button {
+				display: block;
+				margin: 0 auto;
+			}
 		</style>
-        
 	</head>
-    
 	<body>
-        
-		<canvas id="canvas"></canvas>
-
-        <audio id="sound">
-            <source src="typewriter.mp3" type="audio/mp3"></audio>
-        </audio>
-        
-        <script type="text/javascript">
-
-            var sound = document.getElementById("sound");
-            
-            var canvas = document.getElementById("canvas");
-            
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            
-            var c = canvas.getContext("2d");
-            
-            var status = 0;
-            
-            var drawingWord = "";
-
-            var currentWord = "";
-
-            var currentWordHeight = canvas.height * .25;
-            
-            var color = [255, 255, 255];
-
-            window.addEventListener("mousedown", function() {
-                drawWords("ajsdolf");
-            }, false);
-            
-            function animate() {
-                
-                c.fillStyle = "black";
-                c.fillRect(0, 0, canvas.width, canvas.height);
-                c.font = "36px Special Elite";
-                c.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
-                
-                c.fillText(drawingWord, canvas.width / 2 - c.measureText(currentWord).width / 2, currentWordHeight);
-                
-                requestAnimationFrame(animate);
-            
-            }
-            
-            drawWords("November 3rd, 1921");
-
-            function drawWords(word) {
-
-
-
-                drawingWord = "";
-
-                currentWord = word;
-
-            	var splitWord = word.split("");
-
-
-
-            	var index = 0;
-            	
-            	function addLetter() {
-            		drawingWord += splitWord[index];
-            		index++;
-            		if (index >= splitWord.length) {
-            			window.clearInterval(interval);
-                        sound.pause();
-                        sound.loop = false;
-                        
-            		}
-            	}
-
-                sound.play();
-                sound.loop = true;
-
-            	var interval = window.setInterval(function() {
-            		addLetter();
-            	}, 100);
-                
-            }
-            
-            window.onload = function() {
-                animate();
-            }
-            
-            
-        </script>
-        
+		<h1 style="text-align: center;">
+			who is bitch
+		</h1>
+		<script type="text/javascript">
+			var status = 1;
+			function createChoices(choiceArray) {
+				var buttonsArray = [];
+				for (i = 0; i < choiceArray.length; i++) {
+					buttonsArray[i] = document.createElement("button");
+					buttonsArray[i].appendChild(document.createTextNode(choiceArray[i][0]));
+					document.body.appendChild(buttonsArray[i]);
+					buttonsArray[i].id = choiceArray[i][1];
+					alert(buttonsArray[i].id);
+					buttonsArray[i].onclick = function() {
+						handleChoices(this.id);
+					}
+				}
+				
+			}
+			
+			function handleChoices(buttonID) {
+				switch (status) {
+					case 1:
+						if (buttonID = "1a") {
+							alert("wrong");
+						}
+						else {
+							alert("yes");
+						}
+					break;
+				}
+			}
+				createChoices([["me", "1a"], ["u", "1b"]]);
+			
+		</script>
 	</body>
-    
 </html>
