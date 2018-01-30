@@ -21,7 +21,6 @@
 					buttonsArray[i].appendChild(document.createTextNode(choiceArray[i][0]));
 					document.body.appendChild(buttonsArray[i]);
 					buttonsArray[i].id = choiceArray[i][1];
-					alert(buttonsArray[i].id);
 					buttonsArray[i].onclick = function() {
 						handleChoices(this.id);
 					}
