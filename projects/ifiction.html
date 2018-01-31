@@ -2,95 +2,122 @@
 <html>
 	<head>
 		<style type="text/css">
+
 			html {
+
 				background-color: black;
+
 				color: white;
+
 				font-family: 'Arial', sans-serif;
+
 			}
+
 			button {
+
 				display: block;
-				margin: 0 auto;
+
 				color: white;
+
 				outline: none;
+
 				background-color: black;
-				padding: 50px;
-				width: 80%;
-				border: 1px solid white;
+
+				padding: 30px;
+
+				width: 40%;
+
+				border: none;
+				box-shadow: 0 0 5px white;
 			}
+
 		</style>
+
 	</head>
+
 	<body>
+
 		<h1 style="text-align: center;" id="header">
-			?
+
 		</h1>
+		
+		<div style="text-align: center; margin: 0 auto;" id="divID"></div>
+
 		<script type="text/javascript">
+
 			var status = 1;
+
 			var buttonsArray = [];
+
 			function createChoices(choiceArray) {
-				
 				for (i = 0; i < choiceArray.length; i++) {
 					buttonsArray[i] = document.createElement("button");
 					buttonsArray[i].appendChild(document.createTextNode(choiceArray[i][0]));
-					document.body.appendChild(buttonsArray[i]);
+					document.getElementById("divID").appendChild(buttonsArray[i]);
 					buttonsArray[i].id = choiceArray[i][1];
 					buttonsArray[i].onclick = function() {
 						story(this.id);
 					}
 				}
-				
 			}
-			
+
 			var index = 0;
 			var strArr;
-			
 			var inv;
-			
 			var updating = false;
 			
-			function updateHead(word) {
+			function updateHead(word, choice) {
 				updating = true;
 				strArr = word.split("");		
 				document.getElementById("header").innerHTML = "&zwnj;";
 				inv = setInterval(function() {
-					
 					document.getElementById("header").innerHTML += strArr[index];
 					index++;
 					if (index >= strArr.length) {
+						
 						clearInterval(inv);
 						updating = false;
 						inv = 0;
 						index = 0;
+						createChoices(choice);
 					}
-				}, 100);	
-		
+				}, 100);
 			}
-			
-		
 
 			updateHead("?");
-			
+
 			function handleChoices() {
 				for (i = 0; i < buttonsArray.length; i++) {
 					buttonsArray[i].remove();
 				}
-			}
+				
+			}	
 			
 			function story(buttonID) {
 				handleChoices();
-				switch (status) {
-					case 1:
-					
-						if (buttonID == "1b") {
-							updateHead(" wrong");
-						}
-						else {
-							alert("yes");
-						}
-					break;
+				if (!updating) {
+					switch (parseInt(status)) {
+						case 1: 
+							if (buttonID === "1a") {
+								updateHead("yes", [["asdf", "2a"], ["asdfasdf", "2b"]]);
+							}
+							else {
+								updateHead("no");
+							}
+						break;
+						case 2:
+							updateHead("asdffdf", [["asdfdf", "3a"], ["affff", "3b"]]);
+						break;
+					}
+					status++;
 				}
+				
 			}
-				createChoices([["me", "1a"], ["u", "1b"]]);
-			
+		
+			createChoices([["??", "1a"], ["?!", "1b"]]);
+
 		</script>
+
 	</body>
+
 </html>
