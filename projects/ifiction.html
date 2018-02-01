@@ -1,117 +1,141 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html>
-    
 	<head>
-        
+		<link href="https://fonts.googleapis.com/css?family=Acme|Varela+Round" rel="stylesheet">
+
 		<style type="text/css">
-            
-           @import url('https://fonts.googleapis.com/css?family=Special+Elite');
 
-            body {
-                background-color: white;
-                padding: 0;
-                margin: 0;
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-            }
-            
-          
-            
+			html {
+
+				background-color: black;
+
+				color: white;
+
+				font-family: 'Acme', sans-serif;
+
+			}
+
+			h1 {
+
+				font-size: 36px;
+			}
+			button {
+				display: block;
+				color: white;
+				outline: none;
+				background-color: black;
+				padding: 30px;
+				font-family: 'Varela Round', sans-serif;
+				font-size: 24px;
+				width: 40%;
+				margin: auto;
+				border: none;
+				border: 5px solid white;
+				border-radius: 15px;
+			}
+
+			button:hover {
+				color: black;
+				background-color: white;
+				cursor: pointer;
+			}
+
 		</style>
-        
+
 	</head>
-    
+
 	<body>
-        
-		<canvas id="canvas"></canvas>
 
-        <audio id="sound">
-            <source src="typewriter.mp3" type="audio/mp3"></audio>
-        </audio>
-        
-        <script type="text/javascript">
+		<h1 style="text-align: center;" id="header">
 
-            var sound = document.getElementById("sound");
-            
-            var canvas = document.getElementById("canvas");
-            
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            
-            var c = canvas.getContext("2d");
-            
-            var status = 0;
-            
-            var drawingWord = "";
+		</h1>
+		
+		<div style="text-align: center; margin: 0 auto;" id="divID"></div>
 
-            var currentWord = "";
+		<script type="text/javascript">
 
-            var currentWordHeight = canvas.height * .25;
-            
-            var color = [255, 255, 255];
+			var status = 1;
 
-            window.addEventListener("mousedown", function() {
-                drawWords("ajsdolf");
-            }, false);
-            
-            function animate() {
-                
-                c.fillStyle = "black";
-                c.fillRect(0, 0, canvas.width, canvas.height);
-                c.font = "36px Special Elite";
-                c.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
-                
-                c.fillText(drawingWord, canvas.width / 2 - c.measureText(currentWord).width / 2, currentWordHeight);
-                
-                requestAnimationFrame(animate);
-            
-            }
-            
-            drawWords("November 3rd, 1921");
+			var buttonsArray = [];
+			
+			var br;
 
-            function drawWords(word) {
+			function createChoices(choiceArray) {
+				for (i = 0; i < choiceArray[0].length; i++) {
+					buttonsArray[i] = document.createElement("button");
+					buttonsArray[i].appendChild(document.createTextNode(choiceArray[i][0]));
+					document.getElementById("divID").appendChild(buttonsArray[i]);
+					br = document.createElement("br");
+					document.getElementById("divID").appendChild(br);
+					buttonsArray[i].id = choiceArray[i][1];
+					buttonsArray[i].onclick = function() {
+						story(this.id);
+					}
+				}
+			}
 
+			var index = 0;
+			var strArr;
+			var inv;
+			var updating = false;
+			
+			function updateHead(word, choice) {
+				updating = true;
+				strArr = word.split("");		
+				document.getElementById("header").innerHTML = "&zwnj;";
+				inv = setInterval(function() {
+					document.getElementById("header").innerHTML += strArr[index];
+					index++;
+					if (index >= strArr.length) {
+						
+						clearInterval(inv);
+						updating = false;
+						inv = 0;
+						index = 0;
 
+						createChoices(choice);
+					}
+				}, 100);
+			}
 
-                drawingWord = "";
+			updateHead("XD mememmemeemez", [["lolol memez", "1a"], ["fuk memez", "1b"]]);
 
-                currentWord = word;
+			function handleChoices() {
+				for (i = 0; i < buttonsArray.length; i++) {
+					buttonsArray[i].remove();
+				}
+				br.remove();
+				
+			}	
+			
+			function story(buttonID) {
+				handleChoices();
+				if (!updating) {
+					switch (parseInt(status)) {
+						case 1: 
+							if (buttonID === "1a") {
+								updateHead("yes", [
+									["asdf", "2a"], ["asdfasdf", "2b"]
+								]);
+							}
+							else {
+								updateHead("no");
+							}
+						break;
+						case 2:
+							updateHead("asdffdf", [
+								["asdfdf", "3a"], ["affff", "3b"]
+							]);
+						break;
+					}
+					status++;
+				}
+				
+			}
+		
+		
+		</script>
 
-            	var splitWord = word.split("");
-
-
-
-            	var index = 0;
-            	
-            	function addLetter() {
-            		drawingWord += splitWord[index];
-            		index++;
-            		if (index >= splitWord.length) {
-            			window.clearInterval(interval);
-                        sound.pause();
-                        sound.loop = false;
-                        
-            		}
-            	}
-
-                sound.play();
-                sound.loop = true;
-
-            	var interval = window.setInterval(function() {
-            		addLetter();
-            	}, 100);
-                
-            }
-            
-            window.onload = function() {
-                animate();
-            }
-            
-            
-        </script>
-        
 	</body>
-    
+
 </html>
