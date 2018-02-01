@@ -1,8 +1,11 @@
 <!doctype html>
 <html>
 	<head>
+<<<<<<< HEAD
 		<link href="https://fonts.googleapis.com/css?family=Acme|Varela+Round" rel="stylesheet">
 
+=======
+>>>>>>> origin/master
 		<style type="text/css">
 
 			html {
@@ -11,6 +14,7 @@
 
 				color: white;
 
+<<<<<<< HEAD
 				font-family: 'Acme', sans-serif;
 
 			}
@@ -38,6 +42,28 @@
 				color: black;
 				background-color: white;
 				cursor: pointer;
+=======
+				font-family: 'Arial', sans-serif;
+
+			}
+
+			button {
+
+				display: block;
+
+				color: white;
+
+				outline: none;
+
+				background-color: black;
+
+				padding: 30px;
+
+				width: 40%;
+
+				border: none;
+				box-shadow: 0 0 5px white;
+>>>>>>> origin/master
 			}
 
 		</style>
@@ -57,6 +83,7 @@
 			var status = 1;
 
 			var buttonsArray = [];
+<<<<<<< HEAD
 			
 			var br;
 
@@ -67,6 +94,14 @@
 					document.getElementById("divID").appendChild(buttonsArray[i]);
 					br = document.createElement("br");
 					document.getElementById("divID").appendChild(br);
+=======
+
+			function createChoices(choiceArray) {
+				for (i = 0; i < choiceArray.length; i++) {
+					buttonsArray[i] = document.createElement("button");
+					buttonsArray[i].appendChild(document.createTextNode(choiceArray[i][0]));
+					document.getElementById("divID").appendChild(buttonsArray[i]);
+>>>>>>> origin/master
 					buttonsArray[i].id = choiceArray[i][1];
 					buttonsArray[i].onclick = function() {
 						story(this.id);
@@ -92,19 +127,29 @@
 						updating = false;
 						inv = 0;
 						index = 0;
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 						createChoices(choice);
 					}
 				}, 100);
 			}
 
+<<<<<<< HEAD
 			updateHead("XD mememmemeemez", [["lolol memez", "1a"], ["fuk memez", "1b"]]);
+=======
+			updateHead("?");
+>>>>>>> origin/master
 
 			function handleChoices() {
 				for (i = 0; i < buttonsArray.length; i++) {
 					buttonsArray[i].remove();
 				}
+<<<<<<< HEAD
 				br.remove();
+=======
+>>>>>>> origin/master
 				
 			}	
 			
@@ -114,18 +159,26 @@
 					switch (parseInt(status)) {
 						case 1: 
 							if (buttonID === "1a") {
+<<<<<<< HEAD
 								updateHead("yes", [
 									["asdf", "2a"], ["asdfasdf", "2b"]
 								]);
+=======
+								updateHead("yes", [["asdf", "2a"], ["asdfasdf", "2b"]]);
+>>>>>>> origin/master
 							}
 							else {
 								updateHead("no");
 							}
 						break;
 						case 2:
+<<<<<<< HEAD
 							updateHead("asdffdf", [
 								["asdfdf", "3a"], ["affff", "3b"]
 							]);
+=======
+							updateHead("asdffdf", [["asdfdf", "3a"], ["affff", "3b"]]);
+>>>>>>> origin/master
 						break;
 					}
 					status++;
@@ -133,9 +186,18 @@
 				
 			}
 		
+<<<<<<< HEAD
 		
+=======
+			createChoices([["??", "1a"], ["?!", "1b"]]);
+
+>>>>>>> origin/master
 		</script>
 
 	</body>
 
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> origin/master
