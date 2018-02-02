@@ -5,9 +5,9 @@
 
 		<style type="text/css">
 
-			html {
+			body {
 
-				background-color: black;
+				background-color: rgb(255, 119, 255);
 
 				color: white;
 
@@ -16,7 +16,7 @@
 			}
 
 			h1 {
-
+				text-shadow: 0 0 5px black, 0 0 5px black, 0 0 5px black, 0 0 5px black, 0 0 5px black, 0 0 5px black, 0 0 5px black;
 				font-size: 36px;
 			}
 			button {
@@ -30,7 +30,7 @@
 				width: 40%;
 				margin: auto;
 				border: none;
-				border: 5px solid white;
+				border: 5px solid black;
 				border-radius: 15px;
 			}
 
@@ -60,16 +60,26 @@
 			
 			var br;
 
+			var color = [255, 255, 255];
+
 			function createChoices(choiceArray) {
-				for (i = 0; i < choiceArray[0].length; i++) {
+				for (i = 0; i < choiceArray.length; i++) {
 					buttonsArray[i] = document.createElement("button");
 					buttonsArray[i].appendChild(document.createTextNode(choiceArray[i][0]));
 					document.getElementById("divID").appendChild(buttonsArray[i]);
 					br = document.createElement("br");
 					document.getElementById("divID").appendChild(br);
 					buttonsArray[i].id = choiceArray[i][1];
-					buttonsArray[i].onclick = function() {
-						story(this.id);
+					if (choiceArray[i][2]) {
+
+						buttonsArray[i].onclick = function() {
+							story(this.id, true);
+						}
+					}
+					else {
+						buttonsArray[i].onclick = function() {
+							story(this.id, false);
+						}
 					}
 				}
 			}
@@ -98,7 +108,7 @@
 				}, 100);
 			}
 
-			updateHead("XD mememmemeemez", [["lolol memez", "1a"], ["fuk memez", "1b"]]);
+			updateHead("XD mememmemeemez", [["lolol memez", "1a", true], ["fuk memez", "1b", false]]);
 
 			function handleChoices() {
 				for (i = 0; i < buttonsArray.length; i++) {
@@ -108,14 +118,17 @@
 				
 			}	
 			
-			function story(buttonID) {
+			function story(buttonID, good) {
 				handleChoices();
+
+				if (good) {
+				}					
 				if (!updating) {
 					switch (parseInt(status)) {
 						case 1: 
 							if (buttonID === "1a") {
 								updateHead("yes", [
-									["asdf", "2a"], ["asdfasdf", "2b"]
+									["asdf", "2a", true], ["asdfasdf", "2b", false]
 								]);
 							}
 							else {
@@ -124,7 +137,7 @@
 						break;
 						case 2:
 							updateHead("asdffdf", [
-								["asdfdf", "3a"], ["affff", "3b"]
+								["asdfdf", "3a", true], ["affff", "3b", false]
 							]);
 						break;
 					}
