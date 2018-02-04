@@ -65,14 +65,13 @@
 			var color = [255, 255, 255];
 
 			function createChoices(choiceArray) {
+			
 				for (i = 0; i < choiceArray.length; i++) {
 					buttonsArray[i] = document.createElement("button");
 					buttonsArray[i].appendChild(document.createTextNode(choiceArray[i][0]));
 					document.getElementById("divID").appendChild(buttonsArray[i]);
-					if (i > 0) {
-						br[i] = document.createElement("br");
-						document.getElementById("divID").appendChild(br[i]);
-					buttonsArray[i].id = choiceArray[i][1];
+					br[i] = document.createElement("br");
+					document.getElementById("divID").appendChild(br[i]);
 					if (choiceArray[i][2]) {
 
 						buttonsArray[i].onclick = function() {
@@ -112,17 +111,20 @@
 				}, 100);
 			}
 
-<<<<<<< HEAD
-updateHead("You wake up groggy as ever and check your bedside clock.It takes a moment to come into focus, but when it finally does, you notice it reads 7:30. SEVEN THIRTY! You hastily get dressed and gather your belongings, in order not to be late. Yourschool is right around the corner, and you sprintthere.", [["next", "1a", true]]);
-=======
-			updateHead("XD mememmemeemez", [["lolol memez", "1a", true], ["fuk memez", "1b", false]]);
->>>>>>> origin/master
+
+		updateHead("You wake ", [["next", "1a", true]]);
+
+
 
 			function handleChoices() {
 				for (i = 0; i < buttonsArray.length; i++) {
 					buttonsArray[i].remove();
+				
 				}
-				br.remove();
+				
+				for (i = 0; i < br.length; i++) {
+					br[i].remove();
+				}
 				
 			}	
 			
@@ -134,19 +136,15 @@ updateHead("You wake up groggy as ever and check your bedside clock.It takes a m
 				if (!updating) {
 					switch (parseInt(status)) {
 						case 1: 
-							if (buttonID === "1a") {
 								updateHead("yes", [
-									["asdf", "2a", true], ["asdfasdf", "2b", false]
+									["asdf", "2a", true], ["asdfasdf", "2b", false], ["dfdf", "2c", false]
 								]);
-							}
-							else {
-								updateHead("no");
-							}
+							
 						break;
 						case 2:
-							updateHead("asdffdf", [
-								["asdfdf", "3a", true], ["affff", "3b", false]
-							]);
+							updateHead("yes", [
+									["asdf", "2a", true], ["asdfasdf", "2b", false], ["dfdf", "2c", false]
+								]);
 						break;
 					}
 					status++;
