@@ -18,7 +18,7 @@
 			h1 {
 				text-shadow: 0 0 5px black, 0 0 5px black, 0 0 5px black, 0 0 5px black, 0 0 5px black, 0 0 5px black, 0 0 5px black;
 				font-size: 36px;
-				max-width: 50%;
+				max-width: 75%;
 				text-align: center;
 				margin: 0 auto;
 				padding: 30px;
@@ -73,14 +73,13 @@
 
 			var color = [255, 255, 255];
 
-			var color = [255, 255, 255];
-
 			function createChoices(choiceArray) {
 			
 				for (i = 0; i < choiceArray.length; i++) {
 					buttonsArray[i] = document.createElement("button");
 					buttonsArray[i].className = "hidden";
 					buttonsArray[i].appendChild(document.createTextNode(choiceArray[i][0]));
+					buttonsArray[i].id = choiceArray[i][1];
 					document.getElementById("divID").appendChild(buttonsArray[i]);
 					br[i] = document.createElement("br");
 					document.getElementById("divID").appendChild(br[i]);
@@ -103,6 +102,10 @@
 			var strArr;
 			var inv;
 			var updating = false;
+			var keys = [];
+			document.addEventListener("keydown", function(e) {
+				keys[e.keyCode] = true;
+			});
 			
 			function updateHead(word, choice) {
 				updating = true;
@@ -128,14 +131,13 @@
 			}
 
 
-		updateHead("You wake up groggy as ever and check your bedside clock. It takes a moment to come into focus, but when it finally does, you notice it reads 7:30. SEVEN THIRTY! ", [["next", "1a", true]]);
+		updateHead("You wake up groggy as ever and check your bedside clock. It takes a moment to come into focus, but when it finally does, you notice it reads 7:30. SEVEN THIRTY! ", [["Next", "1a", true]]);
 
 
 
 			function handleChoices() {
 				for (i = 0; i < buttonsArray.length; i++) {
 					buttonsArray[i].remove();
-				
 				}
 				
 				for (i = 0; i < br.length; i++) {
@@ -159,14 +161,66 @@
 						break;
 						case 2:
 							if (buttonID === "1a") {
-								updateHead("asdf", [
-									["asdf", "2a", true], ["asdfasdf", "2b", false], ["dfdf", "2c", false]
+								updateHead("You finish the homework at 7:59. You will definitely be late, but it'll be by a hair.", [
+									["asdf", "2a", true]
 								]);
 							}
 							else {
-								updateHead("asdf", [
-									["asdf", "2a", true], ["asdfasdf", "2b", false], ["dfdf", "2c", false]
+								updateHead("You hastily get dressed and gather your belongings, in order not to be late. Your school is right around the corner, and you sprint there.", [
+									["Next", "2b1", null]
 								]);
+							}
+						break;
+						case 3:
+							if (buttonID === "2a") {
+								
+							}
+							else {
+								updateHead("As you arrive, you spot a few of your friends walking to your first class.", [
+									["Next", "2b2", null]
+								]);
+							}
+						break;
+						
+						case 4:
+							if (buttonID === "3a") {
+							
+							}
+							else {
+								updateHead("Your good friend and top soccer player at the school, Yoshida Koetsu, is walking alone and seems to be in his own world. It’s likely he watched the game last night, but unlike you he actually woke up on time for school.", [
+									["Next", "2b3", null]
+								]);
+							}
+						break;
+						case 5: 
+							if (buttonID === "4a") {
+								
+							}
+							
+							else {
+								updateHead("On the other side of the courtyard is your longtime best friend Yuki Adachi surrounded by her friends. She’s known you your entire life, and you care about her a lot. Everyone’s expected you to make a move by now, but you’re unsure of her feelings.", [
+									["Next", "2b4", null]
+								]);				
+							}
+						break;
+						case 6:
+							if (buttonID === "4a") {
+							
+							}
+							else {
+								updateHead("You also notice one of the newer students sitting alone at a table. You think her name’s Iku, but you’ve never actually talked to her. She’s very attractive, and is writing in a journal of some sorts.", [
+									["Next", "2b5", null]
+								]);		
+							}
+						break;
+						case 7:
+							if (buttonID === "5a") {
+							
+							}
+							else {
+								updateHead("Who do you go up to and chat with?", [
+									["Yoshida", "3ba", null], ["Yuki", "3bb", null], ["Iku", "3bc", null]
+								]);		
 							}
 						break;
 					}
