@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+	<head>
+		<style type="text/css">
+			html, body {
+				padding: 0;
+				margin: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<img src="das.png" style="display: none;" id="img"/>
+		<img src="das2.png" style="display: none;" id="img2"/>
+		<canvas id="canvas"></canvas>
+		<script type="text/javascript">
+			var canvas = document.getElementById("canvas");
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+			var c = canvas.getContext("2d");
+			var img = document.getElementById("img");
+
+			var keys = [];
+
+			window.addEventListener("keydown", function(e) {
+				keys[e.keyCode] = true;
+			});
+
+			window.addEventListener("keyup", function(e) {
+				keys[e.keyCode] = false;
+			});
+			function Block(x, y) {
+				this.x = x;
+				this.y = y;
+				this.deleted = false;
+				this.draw = function() {
+					c.drawImage(img, this.x, this.y, 53, 65);
+				}
+				this.check = function() {
+					if (p.x < this.x + 53 && p.x + 53 > this.x && p.y < this.y + 65 && 65 + p.y > this.y) {
+						this.deleted = true;
+					}
+				}
+			}
+
+			var img2 = document.getElementById("img2");
+			
+			var imgX = 150;
+			var dX = 60;
+			var blocks = [];
+			for (i = 0; i < 5; i++) {
+				blocks[i] = new Block(imgX + (i * 53), (i * 65));
+			}
+			for (i = 0; i < 5; i++) {
+				blocks[i + 5] = new Block(imgX + dX + (i * 53), (i * 65));
+			}
+			for (i = 0; i < 5; i++) {
+				blocks[i + 10] = new Block(imgX + 2 * dX + (i * 53), (i * 65));
+			}
+			for (i = 0; i < 5; i++) {
+				blocks[i + 15] = new Block(imgX + 3 * dX + (i * 53), (i * 65));
+			}
+			for (i = 0; i < 5; i++) {
+				blocks[i + 20] = new Block(imgX + 4 * dX + (i * 53), (i * 65));
+			}
+			for (i = 0; i < 5; i++) {
+				blocks[i + 25] = new Block(imgX + 5 * dX + (i * 53), (i * 65));
+			}
+			for (i = 0; i < 5; i++) {
+				blocks[i + 30] = new Block(imgX + 6 * dX + (i * 53), (i * 65));
+			}
+			for (i = 0; i < 5; i++) {
+				blocks[i + 35] = new Block(imgX + 7 * dX + (i * 53), (i * 65));
+			}
+			for (i = 0; i < 5; i++) {
+				blocks[i + 40] = new Block(imgX + 8 * dX + (i * 53), (i * 65));
+			}
+			for (i = 0; i < 5; i++) {
+				blocks[i + 45] = new Block(imgX + 9 * dX + (i * 53), (i * 65));
+			}
+			for (i = 0; i < 5; i++) {
+				blocks[i + 50] = new Block(imgX + 10 * dX + (i * 53), (i * 65));
+			}
+			for (i = 0; i < 5; i++) {
+				blocks[i + 55] = new Block(imgX + 11 * dX + (i * 53), (i * 65));
+			}
+			for (i = 0; i < 5; i++) {
+				blocks[i + 60] = new Block(imgX + 12 * dX + (i * 53), (i * 65));
+			}
+			for (i = 0; i < 5; i++) {
+				blocks[i + 65] = new Block(imgX + 13 * dX + (i * 53), (i * 65));
+			}
+			for (i = 0; i < 5; i++) {
+				blocks[i + 70] = new Block(imgX + 14 * dX + (i * 53), (i * 65));
+			}
+			
+			var imgX = 150;
+			
+			function Player() {
+				this.x = canvas.width * .5;
+				this.y = canvas.height * .8;
+				this.dX = 0;
+				this.dY = 0;
+				this.draw = function() {
+					c.drawImage(img2, this.x, this.y, 53, 65);
+				}
+				this.move = function() {
+					this.x += this.dX;
+					this.y += this.dY;
+					if (keys[37] && this.dX > -6) {
+						this.dX-=2;
+					}
+					if (keys[38] && this.dY > -6) {
+						this.dY-=2;
+					}
+					if (keys[39] && this.dX < 6) {
+						this.dX+=2;
+					}
+					if (keys[40] && this.dY < 6) {
+						this.dY+=2;
+					}
+					this.dX *= 0.9;
+					this.dY *= 0.9;
+				}
+				
+			}
+
+			window.setInterval(function() {
+				blocks[blocks.length] = new Block(Math.random() * canvas.width, Math.random() * canvas.height);
+			}, 2000);
+
+			var p = new Player();
+			function animate() {
+				c.clearRect(0, 0, canvas.width, canvas.height);
+				for (i = 0; i < blocks.length; i++) {
+					if (!blocks[i].deleted) {
+						blocks[i].draw();
+						blocks[i].check();
+					}
+				}
+				
+				p.draw();
+				p.move();
+				requestAnimationFrame(animate);
+			}
+			animate();
+		</script>
+	</body>
+</html>
