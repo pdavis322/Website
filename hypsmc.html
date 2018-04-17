@@ -454,6 +454,8 @@
 			var social = 50;
 
 			var suspended = false;
+			
+			var recruited = -1;
 
 			function getIds(idArr) {
 				var output = [ ];
@@ -829,6 +831,20 @@
 							if (timesAttended[1] === 8) {
 								popup("Congratulations! You have been named Team Captain of football.", ["OK"], [removePopup]);
 								document.getElementById("leadership").innerHTML += "Football Team Captain <br /> <br />";
+								var which = Math.random() * 100;
+								if (which >= 75) {
+									recruited = 0;
+									popup("You have been recruited by Harvard University for football.", ["OK"], [removePopup]);
+								}
+								else if (which <= 25) {
+									recruited = 1;
+									popup("You have been recruited by Yale University for football.", ["OK"], [removePopup]);
+								}
+								else {
+									recruited = 2;
+									popup("You have been recruited by Stanford University for football.", ["OK"], [removePopup]);
+								}
+								
 							}
 								exhaustion += 20;
 								time += 3;
@@ -1070,13 +1086,13 @@
 				var princetonR = Math.random() * 3000 + 1000;
 				var stanfordR = Math.random() * 3000 + 1000;
 				var mitR = Math.random() * 3000 + 1000;
-				if ((gpa * 1.6) + (ec.length * 750) + (sat * 2) + interResults[0] + essayScore + leadershipScore > (17000 + harvardR)) {
+				if (((gpa * 1.6) + (ec.length * 750) + (sat * 2) + interResults[0] + essayScore + leadershipScore > (17000 + harvardR)) || (recruited === 0)) {
 					results[0] = true;
 				} 
 				else {
 					results[0] = false;
 				}
-				if ((gpa * 1.6) + (ec.length * 750) + (sat * 2) + interResults[1] + essayScore + leadershipScore > (17000 + yaleR)) {
+				if (((gpa * 1.6) + (ec.length * 750) + (sat * 2) + interResults[1] + essayScore + leadershipScore > (17000 + yaleR)) || (recruited === 1)) {
 					results[1] = true;
 				}
 				else {
@@ -1088,7 +1104,7 @@
 				else {
 					results[2] = false;
 				}
-				if ((gpa * 1.5) + (ec.length * 750) + (sat) + interResults[3] / 2 + essayScore + leadershipScore * 2 > (17000 + stanfordR)) {
+				if (((gpa * 1.5) + (ec.length * 750) + (sat) + interResults[3] / 2 + essayScore + leadershipScore * 2 > (17000 + stanfordR)) || (recruited === 2)) {
 					results[3] = true;
 				}
 				else {
@@ -1272,7 +1288,7 @@
 						removePopup();
 						popup("Excessive studying can have disastrous effects. Don't let your sanity drop too low, and your exhaustion grow too high.", ["OK"], [function() {
 							removePopup();
-							popup("Missing school puts you at risk of suspension and even expulsion. Attend school by clicking the button in the top-right corner.", ["OK"], [function() {
+							popup("Missing too much school puts you at risk of suspension and even expulsion. Attend school by clicking the button in the top-right corner.", ["OK"], [function() {
 								removePopup();
 								popup("Applications will be submitted on December 31st at midnight. Good luck!", ["OK"], [function() {
 									removePopup();
