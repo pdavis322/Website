@@ -831,20 +831,16 @@
 							if (timesAttended[1] === 8) {
 								popup("Congratulations! You have been named Team Captain of football.", ["OK"], [removePopup]);
 								document.getElementById("leadership").innerHTML += "Football Team Captain <br /> <br />";
-								var which = Math.random() * 100;
-								if (which >= 75) {
+								var s = Math.random() * 100;
+								if (s >= 75) {
 									recruited = 0;
-									popup("You have been recruited by Harvard University for football.", ["OK"], [removePopup]);
 								}
-								else if (which <= 25) {
+								else if (s <= 25) {
 									recruited = 1;
-									popup("You have been recruited by Yale University for football.", ["OK"], [removePopup]);
 								}
 								else {
 									recruited = 2;
-									popup("You have been recruited by Stanford University for football.", ["OK"], [removePopup]);
 								}
-								
 							}
 								exhaustion += 20;
 								time += 3;
@@ -1288,7 +1284,7 @@
 						removePopup();
 						popup("Excessive studying can have disastrous effects. Don't let your sanity drop too low, and your exhaustion grow too high.", ["OK"], [function() {
 							removePopup();
-							popup("Missing too much school puts you at risk of suspension and even expulsion. Attend school by clicking the button in the top-right corner.", ["OK"], [function() {
+							popup("Missing school puts you at risk of suspension and even expulsion. Attend school by clicking the button in the top-right corner.", ["OK"], [function() {
 								removePopup();
 								popup("Applications will be submitted on December 31st at midnight. Good luck!", ["OK"], [function() {
 									removePopup();
