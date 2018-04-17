@@ -829,20 +829,27 @@
 							ecMeeting(["Monday", "Wednesday"], "Football", function() {
 							timesAttended[1]++;
 							if (timesAttended[1] === 8) {
-								popup("Congratulations! You have been named Team Captain of football.", ["OK"], [removePopup]);
+								popup("Congratulations! You have been named Team Captain of football.", ["OK"], [function() {
+									removePopup();
+									var s = Math.random() * 100;
+									if (s >= 75) {
+										recruited = 0;
+										popup("You have been recruited by Harvard University for football!", ["OK"], [removePopup]);
+									}
+									else if (s <= 25) {
+										recruited = 1;
+										popup("You have been recruited by Yale University for football!", ["OK"], [removePopup]);
+									}
+									else {
+										recruited = 2;
+										popup("You have been recruited by Stanford University for football!", ["OK"], [removePopup]);
+									}
+								}]);
 								document.getElementById("leadership").innerHTML += "Football Team Captain <br /> <br />";
-								var s = Math.random() * 100;
-								if (s >= 75) {
-									recruited = 0;
-								}
-								else if (s <= 25) {
-									recruited = 1;
-								}
-								else {
-									recruited = 2;
-								}
 							}
+							if (timesAttended[1] != 8) {
 								exhaustion += 20;
+							}
 								time += 3;
 								gpa -= 20;
 								updateValue("gpa", Math.round((gpa / 1000) * 100) / 100);
