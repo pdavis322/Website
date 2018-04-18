@@ -347,7 +347,9 @@
                     player.move();
                     c.font = "16px Arial";
                     c.fillStyle="blue";
+					if (level === 1) {
                     c.fillText("Use the arrow keys to move. Get to the green to advance. Avoid the red.",80,200);
+					}
                     drawPlatforms();
                     if (platforms[0]) {
                         player.check();
