@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+	<head>
+	</head>
+	<body>
+		<canvas id="canvas" width="600px" height="600px"></canvas>
+		<script type="text/javascript">
+			var canvas = document.getElementById("canvas");
+			var c = canvas.getContext("2d");
+			var x = 300 + 295 * Math.cos(radians);	
+			var	y = 300 + 295 * Math.sin(radians);
+			var d = new Date();
+			var radians = (-Math.PI / 4);
+			function animate() {
+				c.fillStyle = "white";
+				c.fillRect(0, 0, 600, 600);
+				c.strokeStyle = "black";
+				c.lineWidth = 4;
+				c.beginPath();
+				c.arc(300, 300, 295, 0, Math.PI * 2);
+				c.stroke();
+				c.beginPath();
+				c.moveTo(300, 300);
+				c.lineTo(x, y);
+				x = 300 + 295 * Math.cos(radians);	
+				y = 300 + 295 * Math.sin(radians);
+				radians += (Math.PI * 2 / 60);
+				c.stroke();
+				requestAnimationFrame(update);	
+			}
+			animate();
+			//window.setInterval(animate, 1000);
+		</script>
+	</body>
+</html>
