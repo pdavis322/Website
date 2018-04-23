@@ -1,35 +1,51 @@
 <!doctype html>
 <html>
 	<head>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+
+		<style type="text/css">
+			html, body{
+				background-color: rgb(100, 55, 102);
+				font-family: 'Roboto', sans-serif;
+				color: white;
+			}
+			h1 {
+				text-align: center;
+				font-weight: normal;
+				font-size: 36px;
+			}
+			input {
+				margin: auto;
+				display: block;
+				font-size: 24px;
+				outline: none;
+				border: none;
+				caret-color: white;
+				font-family: 'Roboto', sans-serif;
+				background-color: transparent;
+				border-bottom: 1px solid white;
+				padding: 5px;
+			}
+			input:focus {
+				color: white;
+			}
+		
+		</style>
 	</head>
 	<body>
-		<canvas id="canvas" width="600px" height="600px"></canvas>
+		<h1 id="score">SCORE: 0</h1>
+		<br />
+		<br />
+		<h1 id="problem">48 &bull; 5</h1>
+		<br>
+		<br>
+	
+		<input id="in" autofocus />
+		<br />
+		<br />
+		
 		<script type="text/javascript">
-			var canvas = document.getElementById("canvas");
-			var c = canvas.getContext("2d");
-			var x = 300 + 295 * Math.cos(radians);	
-			var	y = 300 + 295 * Math.sin(radians);
-			var d = new Date();
-			var radians = (-Math.PI / 4);
-			function animate() {
-				c.fillStyle = "white";
-				c.fillRect(0, 0, 600, 600);
-				c.strokeStyle = "black";
-				c.lineWidth = 4;
-				c.beginPath();
-				c.arc(300, 300, 295, 0, Math.PI * 2);
-				c.stroke();
-				c.beginPath();
-				c.moveTo(300, 300);
-				c.lineTo(x, y);
-				x = 300 + 295 * Math.cos(radians);	
-				y = 300 + 295 * Math.sin(radians);
-				radians += (Math.PI * 2 / 60);
-				c.stroke();
-				requestAnimationFrame(update);	
-			}
-			animate();
-			//window.setInterval(animate, 1000);
+			
 		</script>
 	</body>
 </html>
