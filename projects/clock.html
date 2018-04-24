@@ -25,26 +25,138 @@
 				background-color: transparent;
 				border-bottom: 1px solid white;
 				padding: 5px;
+				
 			}
 			input:focus {
 				color: white;
+			}
+			
+			button {
+				display: block;
+				margin: 0 auto;
+				outline: none;
+				font-family: 'Roboto', sans-serif;
+				font-size: 24px;
+				border: none;
+				padding: 10px;
+				background-color: white;
+				color: purple;
+				border-radius: 10px;
+				box-shadow: 0 0 5px white;
+				
+			}
+			button:hover {
+				cursor: pointer;
+			}
+			
+			.normal {
+			
+			}
+			
+			.right {
+				animation: yes 0.3s;
+			}
+			
+			.wrong {
+				animation: no 0.3s;
+			}
+			
+			@keyframes yes {
+				0% {background-color: transparent;}
+				50% {background-color: green;}
+				100% {background-color: transparent;}
+			}
+			@keyframes no {
+				0% {background-color: transparent;}
+				50% {background-color: red;}
+				100% {background-color: transparent;}
 			}
 		
 		</style>
 	</head>
 	<body>
-		<h1 id="score">SCORE: 0</h1>
+		<h1>SCORE: <span id="score">0</span></h1>
 		<br />
 		<br />
-		<h1 id="problem">48 &bull; 5</h1>
+		<h1 id="problem">4 &bull; 5</h1>
 		<br>
 		<br>
 	
-		<input id="in" autofocus />
+		<input id="in" autofocus type="text" /> 
 		<br />
 		<br />
+		<h1 id="timer">5</h1><button id="submit" onclick="submit()">Submit</button>
 		
 		<script type="text/javascript">
+			var timer = document.getElementById("timer");
+			var t = 5;
+			var score = 0;
+			var timeInv;
+			
+			function startTimer() {
+				if (timeInv) {
+				clearInterval(timeInv);
+				}
+				resetTimer();
+				timeInv = setInterval(function() {
+				if (t <= 0) {
+					clearInterval(timeInv);
+					score -= 10;
+					document.getElementById("score").innerHTML = score;
+					nextProblem();
+				}
+				else {
+					t--;
+					timer.innerHTML = t;
+				}
+				}, 1000);
+			}
+			
+			startTimer();
+			
+			document.addEventListener("keydown", function(e) {
+				if (e.keyCode === 13) {
+					submit();
+				}
+			});
+			
+			function resetTimer() {
+				t = 5;
+				document.getElementById("timer").innerHTML = t;
+			}
+			function nextProblem() {
+				startTimer();
+				var n1 = Math.floor(Math.random() * 11) + 1;
+				var n2 = Math.floor(Math.random() * 11) + 1;
+				document.getElementById("problem").innerHTML = n1 + " &bull; " + n2;
+				document.getElementById("in").value = "";
+				answer = n1 * n2;
+			}
+			
+			var answer = 20;
+			function submit() {
+				if (parseInt(document.getElementById("in").value) === answer) {
+					score += 10;
+					document.getElementById("score").innerHTML = score;
+					document.getElementById("in").className = "right";
+					setTimeout(function() {
+						document.getElementById("in").className = "normal";
+					}, 300);
+					nextProblem();
+				}
+				else {
+					score -= 10;
+					document.getElementById("score").innerHTML = score;
+					document.getElementById("in").className = "wrong";
+					setTimeout(function() {
+						document.getElementById("in").className = "normal";
+					}, 300);
+					nextProblem();
+					
+				}
+			}
+			
+			
 			
 		</script>
 	</body>
