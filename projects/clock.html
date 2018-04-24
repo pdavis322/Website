@@ -85,13 +85,15 @@
 		<input id="in" autofocus type="text" /> 
 		<br />
 		<br />
-		<h1 id="timer">5</h1><button id="submit" onclick="submit()">Submit</button>
+		<h1 id="timer">5.0</h1><button id="submit" onclick="submit()">Submit</button>
 		
 		<script type="text/javascript">
 			var timer = document.getElementById("timer");
 			var t = 5;
 			var score = 0;
 			var timeInv;
+			
+			var maxT = 5;
 			
 			function startTimer() {
 				if (timeInv) {
@@ -106,10 +108,10 @@
 					nextProblem();
 				}
 				else {
-					t--;
-					timer.innerHTML = t;
+					t = Math.round((t - .1) * 100)  / 100;
+					timer.innerHTML = t.toFixed(1);
 				}
-				}, 1000);
+				}, 100);
 			}
 			
 			startTimer();
@@ -121,16 +123,40 @@
 			});
 			
 			function resetTimer() {
-				t = 5;
+				t = maxT;
 				document.getElementById("timer").innerHTML = t;
 			}
 			function nextProblem() {
 				startTimer();
 				var n1 = Math.floor(Math.random() * 11) + 1;
 				var n2 = Math.floor(Math.random() * 11) + 1;
-				document.getElementById("problem").innerHTML = n1 + " &bull; " + n2;
+				var which = Math.random() * 100;
+				if (which <= 33) {
+					document.getElementById("problem").innerHTML = n1 + " &bull; " + n2;
+					answer = n1 * n2;
+				}
+				else if (which > 33 && which <= 66) {
+					document.getElementById("problem").innerHTML = n1 + " + " + n2;
+					answer = n1 + n2;
+				}
+				else {
+					document.getElementById("problem").innerHTML = n1 + " - " + n2;
+					answer = n1 - n2;
+
+				}
 				document.getElementById("in").value = "";
-				answer = n1 * n2;
+				if (score > 50 && maxT === 5) {
+					maxT = 4;
+				}
+				else if (score > 150 && maxT === 4) {
+					maxT = 3;
+				}
+				else if (score > 250 && maxT === 3) {
+					maxT = 2;
+				}
+				else if (score > 350 && maxT === 2) {
+					maxT = 1;
+				}
 			}
 			
 			var answer = 20;
@@ -145,7 +171,8 @@
 					nextProblem();
 				}
 				else {
-					score -= 10;
+					score = 0;
+					maxT = 5;
 					document.getElementById("score").innerHTML = score;
 					document.getElementById("in").className = "wrong";
 					setTimeout(function() {
