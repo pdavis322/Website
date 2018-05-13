@@ -75,7 +75,8 @@
 				}
 				requestAnimationFrame(animate);
 			}
-			animate();
+			window.onload = function() {animate();}
+			
 		</script>
 	</body>
 </html>
