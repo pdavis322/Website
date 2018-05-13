@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+	<head>
+		<style type="text/css">
+			html, body {
+				overflow: hidden;
+				width: 100%;
+				padding: none;
+				margin: none;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas"></canvas>
+		<img src="mom.jpg" style="display: none;" id="mom"/>
+		<img src="flower1.png" style="display: none;" id="flower1"/>
+		<img src="flower2.png" style="display: none;" id="flower2"/>
+		<img src="flower3.gif" style="display: none;" id="flower3"/>
+		<img src="flower4.png" style="display: none;" id="flower4"/>
+		<img src="flower5.png" style="display: none;" id="flower5"/>
+		
+		<script type="text/javascript">
+			var canvas = document.getElementById("canvas");
+			var c = canvas.getContext("2d");
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+			var img = document.getElementById("mom");
+
+			document.addEventListener("mousedown", function(e) {
+				for (let i of images) {
+					if (e.clientX > i.x && e.clientX < i.x + i.width && e.clientY > i.y && e.clientY < i.y + i.height) {
+						images.splice(images.indexOf(i), 1);
+					}
+				}
+			});
+
+			function Image(x, y, im) {
+				this.x = x;
+				this.y = y;
+				this.width = 150;
+				this.height = 150;
+				this.image = im;
+				this.draw = function() {
+					c.drawImage(this.image, this.x, this.y, this.width, this.height);
+				}
+				this.shrink = function() {
+					this.width-=0.75;
+					this.height-=0.75;
+					if (this.height <= 1) {
+						images.splice(images.indexOf(this), 1);
+					}
+				}
+			}
+
+			var flowers = [document.getElementById("flower2"), document.getElementById("flower3"), document.getElementById("flower4"),document.getElementById("flower5")];
+
+			var images = [new Image(500, 500, flowers[0])];
+
+			var l = 1;
+			window.setInterval(function() {
+				var whichImage = flowers[l % 4];
+
+				images[images.length] = new Image(Math.random() * (canvas.width - 100), Math.random() * (canvas.height - 100), whichImage);
+				l++;
+			}, 500);
+
+			function animate() {
+				c.fillStyle = "white";
+				c.fillRect(0, 0, canvas.width, canvas.height);
+				c.drawImage(document.getElementById("mom"), canvas.width / 2, 0, 512, 682);
+				for (let i of images) {
+					i.draw();
+					i.shrink();
+				}
+				requestAnimationFrame(animate);
+			}
+			animate();
+		</script>
+	</body>
+</html>
