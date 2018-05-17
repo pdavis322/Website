@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+	<head>
+		<style type="text/css">
+			html, body {
+				padding: 0;
+				margin: 0;
+				overflow: hidden;
+				width: 100%;
+				height: 100%;
+				background-color: black;
+			}
+			canvas {
+				margin: 0 auto;
+				display: block;
+				margin-top: 25px;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="800" height="600"></canvas>
+		<script type="text/javascript">
+
+			var canvas = document.getElementById("canvas");
+			//canvas.width = window.innerWidth;
+			//canvas.height = window.innerHeight;
+
+			var width = canvas.width;
+			var height = canvas.height;
+
+			var c = canvas.getContext("2d");
+
+			var bgColor = [255, 255, 255];
+
+			var keys = [ ];
+
+			document.addEventListener("keydown", function(e) {
+				keys[e.keyCode] = true;
+			
+			});
+
+			document.addEventListener("keyup", function(e) {
+				keys[e.keyCode] = false;
+			});
+
+			function setColor(r, g, b) {
+				c.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+			}
+
+			function Player(x, y) {
+				this.x = x;
+				this.y = y;
+				this.r = 0;
+				this.g = 0;
+				this.b = 0;
+				this.velX = 0;
+				this.velY = 0;
+				this.stopped = false;
+				this.draw = function() {
+					setColor(this.r, this.g, this.b);
+					c.beginPath();
+					c.arc(this.x, this.y, 25, 0, Math.PI * 2);
+					c.fill();
+				}
+				this.check = function() {
+					if (!this.stopped) {
+					if (keys[100] && this.velX >= -5) {
+						this.velX--;
+					}
+					if (keys[102] && this.velX <= 5) {
+						this.velX++;
+					}
+					if (keys[104] && this.velY >= -5) {
+						this.velY--;
+					}
+					if (keys[101] && this.velY <= 5) {
+						this.velY++;
+					}
+					}
+					if (keys[81]) {
+						this.r += 2;;
+					}
+					if (keys[65]) {
+						this.r -= 2;;
+					}
+					this.x += this.velX;
+					this.y += this.velY;
+					this.velX *= 0.8;
+					this.velY *= 0.8;
+					if (Math.abs(this.velX) < 0.1 || this.stopped) {
+						this.velX = 0;
+					}
+					if (Math.abs(this.velY) < 0.1 || this.stopped) {
+						this.velY = 0;
+					}
+					
+					for (let o of obstacles) {
+						if (checkCol(p, o)) {
+
+							this.stopped = true;
+
+							if (Math.abs(this.velX) > 0) {
+								this.velX = (this.velX > 0) ? -6 : 6;
+							}
+
+							if (Math.abs(this.velY) > 0) {
+								this.velY = (this.velY > 0) ? -6 : 6;
+							}
+							
+						}
+						else {
+							this.stopped = false;
+						}
+					}
+
+				}
+			}
+
+			function Obst(x, y, w, h, rgb) {
+				this.x = x;
+				this.y = y;
+				this.w = w;
+				this.h = h;
+				this.r = rgb[0];
+				this.g = rgb[1];
+				this.b = rgb[2];
+				this.draw = function() {
+					setColor(this.r, this.g, this.b);
+					c.fillRect(this.x, this.y, this.w, this.h);
+				}
+			}
+
+			var obstacles = [new Obst(50, 400, 500, 100, [50, 0, 0])];
+
+			function checkCol(p, obs) {
+				var dR = Math.abs(p.r - obs.r);
+				var dG = Math.abs(p.g - obs.g);
+				var dB = Math.abs(p.b - obs.b);
+				if (dR < 10 && dG < 10 && dB < 10) {
+					return false;
+				}
+				var distX = Math.abs(p.x - obs.x - obs.w / 2);
+				var distY = Math.abs(p.y - obs.y - obs.h/2);
+
+    			if (distX > (obs.w / 2 + 25)) { return false; }
+    			if (distY > (obs.h / 2 + 25)) { return false; }
+
+    			if (distX <= (obs.w / 2)) { return true; } 
+    			if (distY <= (obs.h / 2)) { return true; }
+
+    			var dX = distX - obs.w / 2;
+
+    			var dY = distY - obs.h / 2;
+
+    			return (dX * dX + dY * dY <= 625);
+
+			}
+
+			var p = new Player(50, 50);
+
+
+
+			function animate() {
+				setColor(bgColor[0], bgColor[1], bgColor[2]);
+				c.fillRect(0, 0, width, height);
+				obstacles[0].draw();
+				p.draw();
+				p.check();
+				c.fillStyle = "black";
+				c.font = "18px Arial";
+				c.fillText(p.velX + " " + p.velY, 500, 50);
+				
+				requestAnimationFrame(animate);
+			}
+
+			animate();
+		</script>
+	</body>
+</html>
