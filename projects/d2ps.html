@@ -40,10 +40,15 @@
 				color: #92bb35;
 				background-color: inherit;
 				font-family: inherit;
+
 				font-size: 18px;
 				padding: 15px;
 				margin: 0 auto;
 				display: block;
+			}
+
+			button:hover {
+				cursor: pointer;
 			}
 
 		</style>
@@ -58,20 +63,67 @@
 				<button id="b1">asdf</button>
 				<br />
 				<button id="b2">asdf</button>
+				<br />
+				<button id="b3">asdf</button>
+				<br />
+				<button id="b4">asdf</button>
 			</div>
 		</div>
+		<audio id="click">
+			<source src="click.wav" type="audio/wav">
+		</audio>
 		<script type="text/javascript">
+
+			var main = document.getElementById("head");
 			
 			var btnDiv = document.getElementById("btns");
 
-			var state = 0;
+			var btnArr = [document.getElementById("b1"), document.getElementById("b2"), document.getElementById("b3"), document.getElementById("b4")];
 
+			var state = "0";
 
-			function nextState(choices) {
-				for (i = 0; i < choices.length; i++) {
-					buttons[i] = document.createElement("")
+			var effect = document.getElementById("click");
+
+			function story(sp) {
+				main.innerHTML = sp.head;
+				var choices = sp.choices;
+				var choicesL = choices.length;
+				removeButtons(4 - choicesL);
+				for (i = 0; i < choicesL; i++) {
+					btnArr[i].innerHTML = choices[i][0];
+					btnArr[i].id = choices[i][1];
+					btnArr[i].onclick = function() {
+						effect.play();
+						setState(this.id);
+					}
 				}
 			}
+
+			function StoryPiece(head, choices) {
+				this.head = head;
+				this.choices = choices;
+			}
+
+		
+			story(new StoryPiece("blurb 1", [
+				["choice 1", "1a"], ["choice 2", "1b"], ["choice 3", "1c"]
+			]));
+			
+			
+			function setState(id) {
+				story(storyStates.get(id));				
+			}
+
+			var storyStates = new Map();
+			storyStates.set("1a", new StoryPiece("blurb 2", [["choice 2a", "2a"]]));
+
+			function removeButtons(n) {
+				for (i = (4 - n); i < 4; i++) {
+					btnArr[i].style.display = "none";
+				}
+			}
+
+
 
 		</script>
 	</body>
