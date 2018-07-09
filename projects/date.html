@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+	<head>
+		<style type="text/css">
+			#select {
+				text-align: center;
+				font-family: "Arial", sans-serif;
+				margin-top: 5%;
+			}
+			#content {
+				text-align: center;
+				font-family: "Arial", sans-serif;
+				font-size: 36px;
+				line-height: 95vh;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="select">
+			
+				Enter date: 
+				<br /><br />
+				Year: <input type="text" style="width: 4em;" id="year" value="2018"/> 
+				Month (0-11): <input type="text" style="width: 2em;" id="month" value="6"/> 
+				Day (1-31): <input type="text" style="width: 2em;" id="day" value="8"/> 
+				Hours (1-24)  <input type="text" style="width: 2em;" id="hour" value="16"/> 
+				Minute (0-59) <input type="text" style="width: 2em;" id="minute" value="55"/> 
+				Second (0-59) <input type="text" style="width: 2em;" id="second" value="0"/> 
+				<button onclick="submit()">Submit</button>
+		</div>
+		<div id="content" style="display: none;">
+			<span id="d"></span> days <span id="h"></span> hours <span id="m"></span> minutes <span id="s"></span> seconds
+		</div>
+		<script type="text/javascript">
+
+			var year, month, day, minute, second, hour;
+			function submit() {
+				document.getElementById("select").style.display = "none";
+				document.getElementById("content").style.display = "block";
+				year = parseInt(document.getElementById("year").value);
+				month = parseInt(document.getElementById("month").value);
+				hour = parseInt(document.getElementById("hour").value);
+				day = parseInt(document.getElementById("day").value);
+				minute = parseInt(document.getElementById("minute").value);
+				second = parseInt(document.getElementById("second").value);
+			
+
+			var date1 = new Date(year, month, day, hour, minute, second, 0);
+			var diff = (date1.getTime() - Date.now()) / 1000;
+			alert(date1);
+
+			var days = Math.floor(diff / (60 * 60 * 24));
+
+			var hours = Math.floor((diff - (days * 60 * 60 * 24)) / (60 * 60));
+			var minutes = Math.floor((diff - (days * 60 * 60 * 24 + hours * 60 * 60)) / 60);
+			var seconds = Math.floor(diff - (days * 60 * 60 * 24 + hours * 60 * 60 + minutes * 60));
+
+			function update() {
+				
+				diff = (date1.getTime() - Date.now()) / 1000;
+			 days = Math.floor(diff / (60 * 60 * 24));
+			 hours = Math.floor((diff - (days * 60 * 60 * 24)) / (60 * 60));
+			 minutes = Math.floor((diff - (days * 60 * 60 * 24 + hours * 60 * 60)) / 60);
+			 seconds = Math.floor(diff - (days * 60 * 60 * 24 + hours * 60 * 60 + minutes * 60));
+			
+			}
+			
+				document.getElementById("h").innerHTML = hours;
+				document.getElementById("m").innerHTML = minutes;
+				document.getElementById("d").innerHTML = days;
+				document.getElementById("s").innerHTML = seconds;
+
+			window.setInterval(function() {
+				update();
+				document.getElementById("h").innerHTML = hours;
+				document.getElementById("m").innerHTML = minutes;
+				document.getElementById("d").innerHTML = days;
+				document.getElementById("s").innerHTML = seconds;
+			}, 1000);
+		}
+		</script>
+	</body>
+</html>
