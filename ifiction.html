@@ -47,14 +47,16 @@
 		
 		<p id="prompt"></p>
 
-		<div id="choicesDiv" style="display: none;">
-			<button id="b1"></button>
-			<button id="b2"></button>
-			<button id="b3"></button>
-
+		<div id="choicesDiv" style="display: block;">
+			<button id="b1" style="display: none;"></button>
+			<button id="b2" style="display: none;"></button>
+			<button id="b3" style="display: none;"></button>
+			<button id="b4" style="display: none;"></button>
 		</div>
 
 		<script type="text/javascript">
+
+			// need to make buttons not display while prompt is being written
 			
 			var prompt = document.getElementById("prompt");
 			
@@ -62,10 +64,19 @@
 			var currentPrompt = "";
 			var index = 0;
 
-			var buttons = [document.getElementById("b1"), document.getElementById("b2"), document.getElementById("b3")];
+			var buttons = [document.getElementById("b1"), document.getElementById("b2"), document.getElementById("b3"), document.getElementById("b4")];
+
+			var state = "0";
+
+
 			var choicesDiv = document.getElementById("choicesDiv");
 
-			function addLetter(fullPrompt, choices) {
+
+			function story(sp) {
+
+			}
+
+			function addLetter(fullPrompt, choices, choicesID) {
 				
 				var loop = true;
 				
@@ -76,7 +87,6 @@
 
 				if (prompt.innerHTML === currentPrompt) {
 					loop = false;
-					createChoices(choices);
 				}
 
 				else {
@@ -91,18 +101,57 @@
 			
 			}
 
-			function createChoices(choices) {
-				choicesDiv.style.display = "block";
-		
-				for (i = 0; i < 3; i++) {
-					buttons[i].innerHTML = choices[i];
+			function story(sp) {
+				index = 0;
+				var choices = sp.choices;
+				var choicesL = choices.length;
+				removeButtons();
+				prompt.innerHTML = "";
+				addLetter(sp.text);
+				window.setTimeout(function() {
+					
+					for (i = 0; i < choicesL; i++) {
+						buttons[i].innerHTML = choices[i][0];
+						buttons[i].id = choices[i][1];
+						buttons[i].style.display = "block";
+						buttons[i].onclick = function() {
+							setState(this.id);
+						}
+					}
+				}, (currentPrompt.length) * 55);
+			}
+
+			function setState(id) {
+				story(storyStates.get(id));
+			}
+
+			function removeButtons() {
+				for (i = 0; i < 4; i++) {
+					buttons[i].style.display = "none";
 				}
 			}
 
-			addLetter("Placeholder prompt placeholder prompt placeholder prompt placeholder prompt placeholder prompt placeholder prompt", ["Choice 1", "Choice 2", "Choice 3"]);
+
+
+			var storyStates = new Map();
+
+			// End element of arrays in 2nd parameneter: story progression (i.e. 1.1 means player chose choice 1 then choice 1. 3.2 means player chose choice 3 then choice 2)
+
+			storyStates.set("0", new StoryPiece("Lorem ipsum dolor sit amet", [["choice 1", "1"], ["choice 2", "2"], ["choice 3", "3"]]));
+			storyStates.set("1", new StoryPiece("Choice 1 Prompt", [["choice 1", "1.1"], ["choice 2", "1.2"], ["choice 3", "1.3"]]));
+			storyStates.set("2", new StoryPiece("Choice 2 Prompt", [["choice 1", "2.1"], ["choice 2", "2.2"], ["choice 3", "2.3"]]));
+			storyStates.set("3", new StoryPiece("Choice 3 Prompt", [["choice 1", "3.1"], ["choice 2", "3.2"], ["choice 3", "3.3"]]));
+			storyStates.set("1.1", new StoryPiece("Choice 1, Chocie 1 prompt", [["choice 1", "1.1.1"], ["choice 2", "1.1.2"]]));
+			story(storyStates.get("0"));
+
+
+			function StoryPiece(text, choices, func) {
+				this.text = text;
+				this.choices = choices;
+				this.func = func;
+			}
+
 			
-
-
 
 		</script>
 
