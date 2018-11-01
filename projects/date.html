@@ -39,9 +39,10 @@
 
 			var saved = false;
 
-			if (localStorage.getItem("diff")) {
+			if (localStorage.getItem("year")) {
 				saved = true;
-				diff = parseInt(localStorage.getItem("diff"));
+				date1 = new Date(parseInt(localStorage.getItem("year")), parseInt(localStorage.getItem("month")), parseInt(localStorage.getItem("hour")), parseInt(localStorage.getItem("day")), parseInt(localStorage.getItem("minute")), parseInt(localStorage.getItem("second")));
+				diff = (date1.getTime() - Date.now()) / 1000; 
 				submit();
 			}
 
@@ -60,6 +61,14 @@
 
 				var date1 = new Date(year, month, day, hour, minute, second, 0);
 				diff = (date1.getTime() - Date.now()) / 1000;
+
+				localStorage.setItem("year", year);
+				localStorage.setItem("month", month);
+				localStorage.setItem("hour", hour);
+				localStorage.setItem("day", day);
+				localStorage.setItem("minute", minute);
+				localStorage.setItem("second", second);
+
 				alert(date1);
 			}
 				var days = Math.floor(diff / (60 * 60 * 24));
