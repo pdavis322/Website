@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+	<head>
+		<title>
+			Mel
+		</title>
+		<style type="text/css">
+			html, body {
+				margin: 0 auto;
+				padding: 0 auto;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas"></canvas>
+		<img src="mel.jpg" style="display: none;" id="mel"/>
+		<script type="text/javascript">
+			var canvas = document.getElementById("canvas");
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+			var c = canvas.getContext("2d");
+
+			var img = document.getElementById("mel");
+			img.crossOrigin = "Anonymous";
+			img.onload = function() {
+				c.drawImage(img, 0, 0);
+				var newImg = new Image();
+				newImg = img;
+				var newArr = [];
+				for (i = 0; i < newImg.width; i++) {
+					newArr[i] = c.getImageData(i, 0, 1, 1).data[i];
+				}
+				alert(c.getImageData(0, 0, 0).data);
+			}
+		</script>
+	</body>
+</html>
