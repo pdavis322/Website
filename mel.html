@@ -23,16 +23,88 @@
 
 			var img = document.getElementById("mel");
 			img.crossOrigin = "Anonymous";
+
 			img.onload = function() {
-				c.drawImage(img, 0, 0);
-				var newImg = new Image();
-				newImg = img;
-				var newArr = [];
-				for (i = 0; i < newImg.width; i++) {
-					newArr[i] = c.getImageData(i, 0, 1, 1).data[i];
+					function loop () {
+					c.drawImage(img, 0, 0);
+					c.drawImage(img, 0, 246);
+					c.drawImage(img, 0, 246 * 2);
+					var imgData = c.getImageData(0, 0, 246, 246);	
+					var newData = [];
+					for (i = 0; i < imgData.data.length; i+=4) {
+						imgData.data[i] += 10;
+					}
+					c.putImageData(imgData, 246, 0);
+					for (i = 0; i < imgData.data.length; i+=4) {
+						imgData.data[i] += 20;
+					}
+					c.putImageData(imgData, 246 * 2, 0);
+					for (i = 0; i < imgData.data.length; i+=4) {
+						imgData.data[i] += 40;
+					}
+					c.putImageData(imgData, 246 * 3, 0);
+					for (i = 0; i < imgData.data.length; i+=4) {
+						imgData.data[i] += 60;
+					}
+					c.putImageData(imgData, 246 * 4, 0);
+					for (i = 0; i < imgData.data.length; i+=4) {
+						imgData.data[i] += 80;
+					}
+					c.putImageData(imgData, 246 * 5, 0);
+					for (i = 0; i < imgData.data.length; i+=4) {
+						imgData.data[i] -= (10 + 240 + 40 + 60 + 80);
+					}
+				
+					for (i = 0; i < imgData.data.length; i+=4) {
+						imgData.data[i + 1] += 10;
+					}
+					c.putImageData(imgData, 246, 246);
+					for (i = 0; i < imgData.data.length; i+=4) {
+						imgData.data[i + 1] += 20;
+					}
+					c.putImageData(imgData, 246 * 2, 246);
+					for (i = 0; i < imgData.data.length; i+=4) {
+						imgData.data[i + 1] += 40;
+					}
+					c.putImageData(imgData, 246 * 3, 246);
+					for (i = 0; i < imgData.data.length; i+=4) {
+						imgData.data[i + 1] += 60;
+					}
+					c.putImageData(imgData, 246 * 4, 246);
+					for (i = 0; i < imgData.data.length; i+=4) {
+						imgData.data[i + 1] += 80;
+					}
+					c.putImageData(imgData, 246 * 5, 246);
+					for (i = 0; i < imgData.data.length; i+=4) {
+						imgData.data[i + 1] -= (10 + 240 + 40 + 60 + 80);
+					}
+					// end green
+					for (i = 0; i < imgData.data.length; i+=4) {
+						imgData.data[i + 2] += 10;
+					}
+					c.putImageData(imgData, 246, 246 * 2);
+					for (i = 0; i < imgData.data.length; i+=4) {
+						imgData.data[i + 2] += 20;
+					}
+					c.putImageData(imgData, 246 * 2, 246 * 2);
+					for (i = 0; i < imgData.data.length; i+=4) {
+						imgData.data[i + 2] += 40;
+					}
+					c.putImageData(imgData, 246 * 3, 246 * 2);
+					for (i = 0; i < imgData.data.length; i+=4) {
+						imgData.data[i + 2] += 60;
+					}
+					c.putImageData(imgData, 246 * 4, 246 * 2);
+					for (i = 0; i < imgData.data.length; i+=4) {
+						imgData.data[i + 2] += 80;
+					}
+					c.putImageData(imgData, 246 * 5, 246 * 2);
+				
+					requestAnimationFrame(loop);
 				}
-				alert(c.getImageData(0, 0, 0).data);
+				loop();
 			}
+
 		</script>
 	</body>
 </html>
