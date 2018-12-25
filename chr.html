@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style type="text/css">
+			html {
+				background-color: black;
+			}
+			canvas {
+				display: block;
+				margin: 0 auto;
+				padding: 0;
+				margin-top: 5%;
+				background-color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="1000" height="600"></canvas>
+		<img src="snowman.png" style="display: none;" id="snow" />
+		<img src="mel.jpg" style="display: none;" id="mel" />
+		<img src="jess.png" style="display: none;" id="jess" />
+		<script type="text/javascript">
+
+			var canvas = document.getElementById("canvas");
+			var c = canvas.getContext("2d");
+
+			var keys = [];
+
+			document.addEventListener("keydown", function(e) {
+				keys[e.keyCode] = true;
+			});
+
+			document.addEventListener("keyup", function(e) {
+				keys[e.keyCode] = false;
+			});
+
+			function Obj(x, y, img, controls, name, width, height) {
+				this.x = x;
+				this.y = y;
+				this.canPhase = true;
+				this.phasing = false;
+				this.a = 1;
+				this.width = width;
+				this.height = height;
+				this.name = name;
+				this.lost = false;
+				this.draw = function() {
+					if (!this.lost) {
+					c.drawImage(img, this.x, this.y);
+				}
+				}
+				this.move = function() {
+					if (keys[controls[0]]) {
+						this.x+=2;
+					}
+					if (keys[controls[1]]) {
+						this.x-=2;
+					}
+					if (keys[controls[2]]) {
+						this.y-=2;
+					}
+					if (keys[controls[3]]) {
+						this.y+=2;
+					}
+				}
+				this.check = function() {
+					if (!this.lost) {
+					if (this.x > canvas.width) {
+						alert(this.name + " wins");
+					}
+					for (i = 0; i < rects.length; i++) {
+						if (this.x + this.width > rects[i].x && this.x < rects[i].x + 50 && this.y + this.height > rects[i].y && this.y < rects[i].y + 20) {
+							alert(this.name + " loses");
+							this.lost = true;
+						}
+					}
+				}
+				}
+				
+			}
+			
+			var p1 = new Obj(50, 50, document.getElementById("mel"), [39, 37, 38, 40], "mel", 50, 50);
+			var p2 = new Obj(50, 200, document.getElementById("jess"), [68, 65, 87, 83], "jess", 54, 57);
+
+			var rects = [];
+			function Rect(x, y) {
+				this.x = x;
+				this.y = y;
+				this.speed = Math.random() * 5;
+				this.draw = function() {
+					c.fillStyle = "red";
+					c.fillRect(this.x, this.y, 50, 20);
+					this.x -= this.speed;
+				}	
+			}
+			for (var i = 0; i < 10; i++) {
+				rects[rects.length] = new Rect(canvas.width, Math.random() * canvas.height);
+			}
+
+			window.setInterval(function() {
+				for (var i = 0; i < 10; i++) {
+					rects[rects.length] = new Rect(canvas.width, Math.random() * canvas.height);
+				}
+			}, 5000);
+
+			var snowx = canvas.width - 300;
+			var snowd = 0.1;
+			window.setInterval(function() {
+				snowd = Math.random() * 2 - 1;
+			}, 1000);
+			function moveSnow() {
+				snowx += snowd;
+			}
+			function Snow(x, y) {
+				this.x = x;
+				this.y = y;
+				this.speed = Math.random() * 2;
+				this.r = Math.random() * 20;
+			}
+			var snow = [];
+
+			for (i = 0; i < 15; i++) {
+				snow[snow.length] = new Snow(canvas.width * Math.random(), -25);
+			}
+			function createSnow() {
+				for (i = 0; i < snow.length; i++) {
+					c.beginPath();
+					c.arc(snow[i].x, snow[i].y, snow[i].r, 0, 2 * Math.PI);
+					c.fillStyle = "white";
+					c.fill();
+					c.strokeStyle = "black";
+					c.stroke();
+					snow[i].y+=snow[i].speed;
+				}
+			}
+			window.setInterval(function() {
+				for (i = 0; i < 15; i++) {
+				snow[snow.length] = new Snow(canvas.width * Math.random(), -25);
+			}
+		}, 3000);
+			function animate() {
+				
+				createSnow();
+				c.fillStyle = "rgb(40, 19, 122)";
+				c.fillRect(0, 0, canvas.width, canvas.height);
+								c.drawImage(document.getElementById("snow"), snowx, 0);
+
+				p1.draw();
+				p1.move();
+				p2.draw();
+				p2.move();
+				p1.check();
+				p2.check();
+
+								moveSnow();
+
+
+				for (var i = 0; i < rects.length; i++) {
+					rects[i].draw();
+				}
+
+				createSnow();
+		
+				
+				requestAnimationFrame(animate);
+			}
+
+			animate();
+		</script>
+	</body>
+</html>
