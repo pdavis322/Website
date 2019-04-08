@@ -72,10 +72,6 @@
 			var choicesDiv = document.getElementById("choicesDiv");
 
 
-			function story(sp) {
-
-			}
-
 			function addLetter(fullPrompt, choices, choicesID) {
 				
 				var loop = true;
@@ -107,6 +103,9 @@
 				var choicesL = choices.length;
 				removeButtons();
 				prompt.innerHTML = "";
+				if (sp.color) {
+					prompt.style.color = sp.color;
+				}
 				addLetter(sp.text);
 				window.setTimeout(function() {
 					
@@ -138,17 +137,24 @@
 			// End element of arrays in 2nd parameneter: story progression (i.e. 1.1 means player chose choice 1 then choice 1. 3.2 means player chose choice 3 then choice 2)
 
 			storyStates.set("0", new StoryPiece("Lorem ipsum dolor sit amet", [["choice 1", "1"], ["choice 2", "2"], ["choice 3", "3"]]));
+			storyStates.get("0").color = "red";
 			storyStates.set("1", new StoryPiece("Choice 1 Prompt", [["choice 1", "1.1"], ["choice 2", "1.2"], ["choice 3", "1.3"]]));
+			storyStates.get("1").color = "purple";
 			storyStates.set("2", new StoryPiece("Choice 2 Prompt", [["choice 1", "2.1"], ["choice 2", "2.2"], ["choice 3", "2.3"]]));
 			storyStates.set("3", new StoryPiece("Choice 3 Prompt", [["choice 1", "3.1"], ["choice 2", "3.2"], ["choice 3", "3.3"]]));
 			storyStates.set("1.1", new StoryPiece("Choice 1, Chocie 1 prompt", [["choice 1", "1.1.1"], ["choice 2", "1.1.2"]]));
+			storyStates.set("1.1.2", new StoryPiece("asdf", [["Next", "end"]]));
+			storyStates.set("end", new StoryPiece("the end", []));
 			story(storyStates.get("0"));
+
+			
 
 
 			function StoryPiece(text, choices, func) {
 				this.text = text;
 				this.choices = choices;
 				this.func = func;
+				this.color;
 			}
 
 			
